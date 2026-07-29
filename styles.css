@@ -1,3 +1,19 @@
+@font-face {
+  font-family: "DM Sans";
+  src: url("Public/fonts/dm-sans-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("Public/fonts/manrope-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+}
+
 :root {
   --navy: #29292c;
   --navy-deep: #171719;
