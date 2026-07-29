@@ -215,8 +215,9 @@ h3 {
 .hero-content {
   position: absolute;
   left: var(--page-gutter);
-  top: 15%;
+  top: 50%;
   width: 80ch;
+  translate: 0 -50%;
   transform: translate3d(0, var(--hero-parallax), 0);
   will-change: transform;
 }
@@ -1282,6 +1283,8 @@ h2 em {
   .hero-content {
     inset: auto var(--page-gutter) 42px;
     width: auto;
+    translate: none;
+    transform: translate3d(0, var(--hero-parallax), 0);
   }
 
   .hero-intro {
@@ -1618,9 +1621,6 @@ h2 em {
 @media (min-width: 901px) and (max-height: 800px) {
   .hero {
     height: calc(100dvh - 204px);
-  }
-  .hero-content {
-    top: 8%;
   }
   .hero .eyebrow {
     margin-bottom: 16px;
