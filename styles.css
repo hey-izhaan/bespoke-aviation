@@ -1319,7 +1319,10 @@ h2 {
   }
 
   .hero-trust .aca-badge {
-    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
   }
 
   .aca-badge img {
