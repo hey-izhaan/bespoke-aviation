@@ -1,0 +1,209 @@
+:root {
+  --navy: #29292c;
+  --navy-deep: #171719;
+  --blue: #424247;
+  --mist: #eeedeb;
+  --paper: #f7f6f2;
+  --white: #fff;
+  --ink: #2b2b2e;
+  --red: #d40818;
+  --line: rgba(43, 43, 46, .17);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 1180px; background: var(--paper); color: var(--ink); font-family: "DM Sans", sans-serif; }
+a { color: inherit; text-decoration: none; }
+img { display: block; width: 100%; }
+button, input { font: inherit; }
+
+.site-header { height: 92px; padding: 0 7.5vw; display: flex; align-items: center; justify-content: space-between; background: var(--paper); border-bottom: 1px solid rgba(43,43,46,.12); position: relative; z-index: 20; }
+.brand { display: inline-flex; align-items: center; }
+.brand img { width: 148px; height: auto; mix-blend-mode: multiply; }
+.header-actions { margin-left: auto; display: flex; align-items: center; gap: 36px; }
+.main-nav { display: flex; gap: 34px; font-size: 13px; }
+.main-nav a { position: relative; padding: 34px 0; }
+.main-nav a:after { content: ""; position: absolute; left: 0; right: 100%; bottom: 27px; height: 1px; background: var(--red); transition: right .25s; }
+.main-nav a:hover:after, .main-nav a[aria-current="page"]:after { right: 0; }
+.main-nav a[aria-current="page"] { color: var(--red); }
+.header-cta { border: 1px solid var(--red); padding: 13px 18px; font-size: 13px; display: flex; gap: 28px; align-items: center; background: var(--red); color: var(--white); transition: background .2s, border-color .2s; }
+.header-cta:hover { background: #b90715; border-color: #b90715; }
+.site-header a:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; }
+.airplane-icon { width: 15px; height: 15px; display: inline-block; flex: 0 0 auto; background: currentColor; -webkit-mask: url("Public/airplane.svg") center / contain no-repeat; mask: url("Public/airplane.svg") center / contain no-repeat; transform: rotate(0deg); }
+.plane-up-right { transform: rotate(45deg); }
+.plane-right { transform: rotate(90deg); }
+.plane-down { transform: rotate(180deg); }
+.plane-left { transform: rotate(-90deg); }
+
+.hero { height: calc(100vh - 92px); min-height: 720px; max-height: 930px; position: relative; overflow: hidden; color: var(--white); }
+.hero-video { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(18,18,20,.78) 0%, rgba(18,18,20,.44) 48%, rgba(18,18,20,.12) 100%), linear-gradient(0deg, rgba(18,18,20,.76) 0%, transparent 36%); }
+.hero-content { position: absolute; left: 7.5vw; top: 15%; width: 760px; }
+.eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: .25em; margin: 0 0 28px; font-weight: 600; }
+.eyebrow.light { color: rgba(255,255,255,.72); }
+.hero h1 { font: 400 clamp(64px, 6vw, 96px)/.98 "Manrope", sans-serif; letter-spacing: -.06em; margin: 0; }
+h1 em, h2 em { font-style: italic; font-family: Georgia, serif; font-weight: 400; letter-spacing: -.045em; }
+.hero-intro { max-width: 560px; font-size: 17px; line-height: 1.7; color: rgba(255,255,255,.82); margin: 32px 0 38px; }
+.hero-actions { display: flex; align-items: center; gap: 34px; }
+.button { display: inline-flex; justify-content: space-between; align-items: center; gap: 45px; padding: 17px 20px; min-width: 220px; font-size: 13px; }
+.button-light { background: var(--white); color: var(--navy); }
+.text-link { font-size: 13px; font-weight: 600; display: inline-flex; gap: 22px; align-items: center; padding-bottom: 7px; border-bottom: 1px solid currentColor; }
+.text-link.light { color: white; }
+.hero-trust { position: absolute; left: 0; right: 0; bottom: 0; height: 132px; border-top: 1px solid rgba(255,255,255,.24); display: grid; grid-template-columns: 1fr 1fr 1fr 1.2fr; padding: 0 7.5vw; background: rgba(18,18,20,.25); backdrop-filter: blur(7px); }
+.hero-trust > div { display: flex; align-items: center; gap: 18px; border-right: 1px solid rgba(255,255,255,.18); padding: 0 28px; }
+.hero-trust > div:first-child { padding-left: 0; }
+.hero-trust > div:last-child { border-right: 0; }
+.hero-trust strong { font: 500 28px/1 "Manrope"; }
+.hero-trust span { font-size: 11px; line-height: 1.5; color: rgba(255,255,255,.68); }
+.hero-trust .aca-badge { justify-content: flex-end; }
+.aca-badge img { width: 170px; filter: brightness(0) invert(1); }
+.aca-badge span { text-transform: uppercase; letter-spacing: .14em; }
+
+.section-pad { padding: 120px 7.5vw; }
+.section-label { text-transform: uppercase; font-size: 10px; letter-spacing: .22em; font-weight: 600; display: flex; gap: 16px; align-items: center; color: #706e72; }
+.section-label span { color: var(--red); }
+.section-label.light, .section-label.light span { color: rgba(255,255,255,.62); }
+.intro { background: var(--paper); }
+.intro-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 11vw; margin-top: 65px; }
+h2 { font: 400 57px/1.08 "Manrope"; letter-spacing: -.055em; margin: 0; }
+.intro-copy { padding-top: 8px; }
+.intro-copy p { color: #68666a; font-size: 15px; line-height: 1.85; }
+.intro-copy .lead { color: var(--ink); font-size: 20px; line-height: 1.55; margin-top: 0; }
+.intro-copy .text-link { margin-top: 20px; }
+
+.feature-image { height: 720px; position: relative; overflow: hidden; margin: 0 3vw; }
+.feature-image img { height: 100%; object-fit: cover; }
+.image-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(23,23,25,.76); backdrop-filter: blur(8px); color: white; display: flex; justify-content: space-between; padding: 20px 24px; text-transform: uppercase; font-size: 9px; letter-spacing: .18em; }
+
+.services { background: var(--mist); }
+.services-heading { display: grid; grid-template-columns: 1fr .65fr; gap: 13vw; align-items: end; margin: 64px 0 72px; }
+.services-heading p { margin: 0; color: #69676b; font-size: 16px; line-height: 1.75; }
+.service-list { border-top: 1px solid var(--line); }
+.service-list article { display: grid; grid-template-columns: 80px 1fr 1.5fr 50px; align-items: center; min-height: 145px; border-bottom: 1px solid var(--line); transition: padding .3s, background .3s; }
+.service-list article:hover { background: rgba(255,255,255,.55); padding: 0 18px; }
+.service-number { font-size: 11px; color: #7a777b; }
+.service-list h3 { font: 500 24px/1.2 "Manrope"; margin: 0; }
+.service-list p { color: #716f73; line-height: 1.7; font-size: 14px; max-width: 560px; }
+.service-icon { justify-self: end; }
+
+.mark-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 860px; background: var(--navy); color: white; }
+.mark-photo { position: relative; overflow: hidden; }
+.mark-photo > img { height: 100%; object-fit: cover; object-position: center 18%; filter: saturate(.78); }
+.photo-note { position: absolute; left: 28px; bottom: 28px; background: var(--paper); color: var(--navy); padding: 17px 20px; min-width: 230px; display: flex; flex-direction: column; }
+.photo-note span { font-weight: 600; }
+.photo-note small { margin-top: 5px; color: #747175; }
+.mark-copy { padding: 110px 8vw 90px 7vw; display: flex; flex-direction: column; justify-content: center; }
+.mark-copy blockquote { font: 400 41px/1.26 Georgia, serif; letter-spacing: -.025em; margin: 70px 0 45px; }
+.mark-copy p { color: rgba(255,255,255,.7); font-size: 15px; line-height: 1.75; max-width: 600px; }
+.signature { font: italic 30px/1 Georgia, serif; margin-top: 35px; color: rgba(255,255,255,.86); }
+
+.journey { background: var(--paper); }
+.journey-header { margin: 60px 0 75px; display: grid; grid-template-columns: 1fr .55fr; gap: 12vw; align-items: end; }
+.journey-header p { color: #747175; line-height: 1.7; margin: 0; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+.steps article { padding: 38px 48px 20px 0; border-right: 1px solid var(--line); min-height: 275px; }
+.steps article:not(:first-child) { padding-left: 38px; }
+.steps article:last-child { border-right: 0; }
+.steps span { color: #7a777b; font-size: 11px; }
+.steps h3 { font: 500 24px/1.2 "Manrope"; margin: 70px 0 18px; }
+.steps p { color: #716f73; font-size: 14px; line-height: 1.7; max-width: 320px; }
+
+.testimonial { display: grid; grid-template-columns: 1fr 1fr; min-height: 700px; }
+.testimonial-photo img { height: 100%; object-fit: cover; }
+.testimonial-copy { background: #e3e1de; padding: 110px 8vw; display: flex; flex-direction: column; justify-content: center; }
+.stars { width: 130px; height: auto; margin-bottom: 38px; }
+.testimonial-copy blockquote { font: 400 38px/1.35 Georgia, serif; color: var(--navy); margin: 0; }
+.client-name { margin-top: 34px; font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: #747175; }
+.testimonial-nav { margin-top: 75px; display: flex; align-items: center; gap: 18px; }
+.testimonial-nav button { width: 42px; height: 42px; border: 1px solid rgba(43,43,46,.35); background: transparent; cursor: pointer; display: grid; place-items: center; }
+.testimonial-nav span { font-size: 11px; color: #747175; }
+
+.enquiry { background: var(--navy-deep); color: white; display: grid; grid-template-columns: .75fr 1.25fr; gap: 10vw; }
+.enquiry-intro h2 { font-size: 60px; margin: 65px 0 30px; }
+.enquiry-intro > p { color: rgba(255,255,255,.62); line-height: 1.75; max-width: 430px; }
+.response-time { border-top: 1px solid rgba(255,255,255,.22); margin-top: 55px; padding-top: 22px; display: flex; flex-direction: column; gap: 6px; }
+.response-time span { color: rgba(255,255,255,.5); font-size: 11px; text-transform: uppercase; letter-spacing: .15em; }
+.response-time strong { font: 400 24px/1.2 "Manrope"; }
+.quote-form { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 22px; align-content: start; }
+.field { border-bottom: 1px solid rgba(255,255,255,.27); padding-bottom: 10px; }
+.field.wide { grid-column: 1 / -1; }
+.field label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: .15em; color: rgba(255,255,255,.52); margin-bottom: 10px; }
+.field input { width: 100%; border: 0; outline: 0; background: transparent; color: white; padding: 7px 0 10px; font-size: 16px; color-scheme: dark; }
+.field input::placeholder { color: rgba(255,255,255,.38); }
+.submit-button { grid-column: 1 / -1; margin-top: 14px; height: 62px; border: 0; padding: 0 22px; background: var(--red); color: white; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; }
+.form-note { grid-column: 1 / -1; margin: -12px 0 0; color: rgba(255,255,255,.38); font-size: 10px; }
+
+.footer { background: var(--paper); padding: 90px 7.5vw 28px; }
+.footer-top { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 75px; border-bottom: 1px solid var(--line); }
+.footer-top h2 { font-size: 45px; text-align: right; }
+.footer-grid { display: grid; grid-template-columns: 1.45fr 1fr 1fr 1.2fr; gap: 60px; padding: 60px 0 70px; }
+.footer-grid > div { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; font-size: 13px; }
+.footer-label { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: #777478; margin-bottom: 14px; }
+.footer-grid a:hover { text-decoration: underline; }
+.footer-accreditation { align-items: flex-end !important; }
+.footer-accreditation img { width: 210px; }
+.footer-accreditation span { font-size: 10px; text-transform: uppercase; letter-spacing: .16em; color: #747175; }
+.footer-bottom { border-top: 1px solid var(--line); padding-top: 24px; display: flex; justify-content: space-between; font-size: 10px; text-transform: uppercase; letter-spacing: .12em; color: #747175; }
+.footer-bottom div { display: flex; gap: 28px; }
+.footer-bottom > a { display: flex; align-items: center; gap: 8px; }
+
+.aircraft-hero { min-height: 570px; padding: 115px 7.5vw 72px; background: var(--navy-deep); color: var(--white); display: grid; grid-template-columns: 1fr .38fr; gap: 10vw; align-items: end; }
+.aircraft-hero h1 { font: 400 clamp(64px, 6vw, 92px)/.98 "Manrope", sans-serif; letter-spacing: -.06em; margin: 0; }
+.aircraft-hero h1 em { font-style: italic; font-family: Georgia, serif; font-weight: 400; }
+.aircraft-hero-copy > p:last-child { max-width: 620px; margin: 34px 0 0; color: rgba(255,255,255,.67); font-size: 16px; line-height: 1.75; }
+.aircraft-hero-stat { border-left: 1px solid rgba(255,255,255,.22); padding: 22px 0 22px 38px; display: flex; flex-direction: column; gap: 15px; }
+.aircraft-hero-stat strong { font: 400 54px/1 "Manrope", sans-serif; letter-spacing: -.05em; }
+.aircraft-hero-stat span { color: rgba(255,255,255,.58); font-size: 12px; line-height: 1.6; text-transform: uppercase; letter-spacing: .12em; }
+.fleet { background: var(--paper); }
+.fleet-heading { display: grid; grid-template-columns: 1fr .45fr; gap: 12vw; align-items: end; margin: 64px 0 78px; }
+.fleet-heading p { color: #716f73; font-size: 15px; line-height: 1.75; margin: 0; max-width: 450px; }
+.aircraft-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 58px 24px; }
+.aircraft-card { border-bottom: 1px solid var(--line); }
+.aircraft-photo { height: 290px; overflow: hidden; background: var(--mist); }
+.aircraft-photo img { height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.22,.61,.36,1); }
+.aircraft-card:hover .aircraft-photo img { transform: scale(1.035); }
+.aircraft-card-body { padding: 24px 0 26px; display: grid; grid-template-columns: 1fr auto; align-items: end; column-gap: 16px; }
+.aircraft-type { grid-column: 1 / -1; margin-bottom: 22px; color: var(--red); font-size: 9px; line-height: 1; text-transform: uppercase; letter-spacing: .18em; font-weight: 600; }
+.aircraft-card h3 { font: 500 23px/1.15 "Manrope", sans-serif; letter-spacing: -.035em; margin: 0; }
+.aircraft-card p { margin: 9px 0 0; color: #777478; font-size: 12px; }
+.aircraft-card a { grid-row: 2 / 4; grid-column: 2; align-self: center; width: 46px; height: 46px; border: 1px solid var(--line); display: grid; place-items: center; color: var(--ink); transition: background .2s, color .2s, border-color .2s; font-size: 0; }
+.aircraft-card a:hover { background: var(--red); border-color: var(--red); color: var(--white); }
+.aircraft-card a:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; }
+.aircraft-cta { background: var(--navy); color: var(--white); padding: 105px 7.5vw; display: grid; grid-template-columns: 1fr .65fr; gap: 12vw; align-items: end; }
+.aircraft-cta h2 { font-size: 58px; }
+.aircraft-cta > div:last-child > p { color: rgba(255,255,255,.65); font-size: 15px; line-height: 1.75; margin: 0 0 34px; max-width: 530px; }
+.image-credits { border-top: 1px solid var(--line); padding: 14px 0; color: #858286; font-size: 9px; }
+.image-credits a { text-decoration: underline; }
+
+.contact-page { min-height: 760px; background: var(--navy-deep); color: var(--white); display: grid; grid-template-columns: .75fr 1.25fr; gap: 10vw; align-items: center; }
+.contact-page .enquiry-intro h1 { font: 400 67px/1.04 "Manrope", sans-serif; letter-spacing: -.055em; margin: 64px 0 30px; }
+.contact-page .enquiry-intro > p { color: rgba(255,255,255,.62); line-height: 1.75; max-width: 430px; }
+.contact-personal { min-height: 760px; display: grid; grid-template-columns: .8fr 1.2fr; background: var(--paper); }
+.contact-portrait { min-height: 760px; overflow: hidden; }
+.contact-portrait img { height: 100%; object-fit: cover; object-position: center 18%; }
+.contact-details { padding: 105px 9vw 90px 8vw; display: flex; flex-direction: column; justify-content: center; }
+.contact-details h2 { margin: 58px 0 28px; }
+.contact-details > p { max-width: 560px; color: #716f73; font-size: 15px; line-height: 1.75; }
+.contact-links { border-top: 1px solid var(--line); margin-top: 38px; }
+.contact-links a { border-bottom: 1px solid var(--line); min-height: 76px; display: grid; grid-template-columns: 130px 1fr; align-items: center; font-size: 15px; }
+.contact-links a span { color: #777478; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; }
+.contact-links a:hover { color: var(--red); }
+.contact-accreditation { margin-top: 46px; display: flex; align-items: center; gap: 34px; }
+.contact-accreditation img { width: 180px; }
+.contact-accreditation p { max-width: 330px; color: #777478; font-size: 11px; line-height: 1.6; }
+.legal-hero { min-height: 480px; padding: 105px 7.5vw 70px; background: var(--navy-deep); color: var(--white); display: flex; flex-direction: column; justify-content: flex-end; }
+.legal-hero h1 { font: 400 80px/.98 "Manrope", sans-serif; letter-spacing: -.06em; margin: 0; }
+.legal-hero h1 em { font: italic 400 1em/.98 Georgia, serif; }
+.legal-layout { display: grid; grid-template-columns: .42fr 1fr; gap: 10vw; align-items: start; background: var(--paper); }
+.legal-intro { position: sticky; top: 50px; }
+.legal-intro > p { margin: 46px 0 34px; color: #666469; font-size: 14px; line-height: 1.8; }
+.legal-copy { max-width: 860px; }
+.legal-copy > h2 { font-size: 43px; margin-bottom: 48px; }
+.legal-copy section { padding-top: 52px; margin-top: 52px; border-top: 1px solid var(--line); }
+.legal-copy h3 { font: 500 28px/1.2 "Manrope", sans-serif; letter-spacing: -.035em; margin: 0 0 30px; }
+.legal-copy p { color: #5f5d61; font-size: 13px; line-height: 1.85; margin: 0 0 17px; }
+.legal-copy p strong { color: var(--ink); }
+
+@media (max-width: 1180px) {
+  body { overflow-x: auto; }
+}
