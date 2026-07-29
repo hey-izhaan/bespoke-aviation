@@ -72,6 +72,54 @@ matchMedia("(min-width: 901px)").addEventListener("change", ({ matches }) => {
   if (matches) setMenuOpen(false);
 });
 
+document.body.insertAdjacentHTML("beforeend", `<aside class="chat-widget" aria-label="Contact Bespoke Aviation">
+  <div class="chat-teaser"><button class="chat-teaser-open" type="button" aria-expanded="false" aria-controls="chat-panel"><img src="Public/Hero%20Thumbnail.png" alt=""><span>Hi there, have a question?<strong>Talk to us.</strong></span></button><button class="chat-teaser-close" type="button" aria-label="Dismiss message">&times;</button></div>
+  <section class="chat-panel" id="chat-panel" aria-hidden="true" inert>
+    <header class="chat-panel-header"><img src="Public/Hero%20Thumbnail.png" alt=""><div><strong>Have a question?</strong><span>We’re here to help.</span></div><button class="chat-panel-close" type="button" aria-label="Close contact form">&times;</button></header>
+    <div class="chat-panel-body"><p class="chat-intro">Tell us what you need and Mark will get back to you personally.</p><form class="chat-form">
+      <label><span>Name</span><input name="name" autocomplete="name" placeholder="Name *" required></label>
+      <label><span>Phone</span><input name="phone" type="tel" autocomplete="tel" placeholder="Phone"></label>
+      <label><span>Email</span><input name="email" type="email" autocomplete="email" placeholder="Email *" required></label>
+      <label><span>Message</span><textarea name="message" placeholder="How can we help? *" required></textarea></label>
+      <label class="chat-consent"><input type="checkbox" required><span>I agree that Bespoke Aviation may contact me about this enquiry.</span></label>
+      <button class="chat-send" type="submit">Send enquiry <span aria-hidden="true">↗</span></button><p class="chat-status" aria-live="polite"></p>
+    </form></div>
+  </section>
+  <button class="chat-toggle" type="button" aria-label="Open contact form" aria-expanded="false" aria-controls="chat-panel"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7.5 21.5 5 27l6-2.5c1.5.7 3.2 1 5 1 6.1 0 11-4.3 11-9.7S22.1 6 16 6 5 10.3 5 15.8c0 2.1.9 4.1 2.5 5.7Z"/><path d="M11 13h10M11 18h7"/></svg></button>
+</aside>`);
+
+const chatWidget = document.querySelector(".chat-widget");
+const chatPanel = chatWidget.querySelector(".chat-panel");
+const chatToggle = chatWidget.querySelector(".chat-toggle");
+const chatTeaserOpen = chatWidget.querySelector(".chat-teaser-open");
+
+function setChatOpen(open) {
+  chatWidget.classList.toggle("is-open", open);
+  chatPanel.inert = !open;
+  chatPanel.setAttribute("aria-hidden", String(!open));
+  [chatToggle, chatTeaserOpen].forEach((button) => button.setAttribute("aria-expanded", String(open)));
+  chatToggle.setAttribute("aria-label", `${open ? "Close" : "Open"} contact form`);
+  if (open) requestAnimationFrame(() => chatPanel.querySelector("input")?.focus());
+}
+
+chatToggle.addEventListener("click", () => setChatOpen(!chatWidget.classList.contains("is-open")));
+chatTeaserOpen.addEventListener("click", () => setChatOpen(true));
+chatWidget.querySelector(".chat-teaser-close").addEventListener("click", () => chatWidget.classList.add("is-teaser-dismissed"));
+chatWidget.querySelector(".chat-panel-close").addEventListener("click", () => { setChatOpen(false); chatToggle.focus(); });
+document.addEventListener("keydown", ({ key }) => {
+  if (key === "Escape" && chatWidget.classList.contains("is-open")) { setChatOpen(false); chatToggle.focus(); }
+});
+
+chatWidget.querySelector(".chat-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  if (!form.reportValidity()) return;
+  const data = new FormData(form);
+  const body = `Name: ${data.get("name")}\nPhone: ${data.get("phone") || "Not provided"}\nEmail: ${data.get("email")}\n\n${data.get("message")}`;
+  chatWidget.querySelector(".chat-status").textContent = "Opening your email app…";
+  location.href = `mailto:mark@bespoke-aviation.com?subject=Website enquiry from ${encodeURIComponent(data.get("name"))}&body=${encodeURIComponent(body)}`;
+});
+
 const reviews = [
   {
     quote:
@@ -147,7 +195,7 @@ barba.init({
       },
       afterLeave() {
         window.lenis
-          ? window.lenis.scrollTo(0, { immediate: true })
+          ? window.lenis.scrollTo(0, { immediate: true, force: true })
           : scrollTo(0, 0);
       },
       beforeEnter({ next }) {

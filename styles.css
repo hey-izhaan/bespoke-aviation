@@ -10,6 +10,10 @@
   --line: rgba(43, 43, 46, 0.17);
   --page-gutter: clamp(32px, 7.5vw, 144px);
   --grid-gap: 24px;
+  --heading-display: clamp(52px, 6vw, 96px);
+  --heading-section: clamp(38px, 4vw, 60px);
+  --heading-compact: clamp(38px, 3.125vw, 45px);
+  --heading-item: 24px;
 }
 
 html {
@@ -37,6 +41,28 @@ img {
 button,
 input {
   font: inherit;
+}
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  letter-spacing: -0.055em;
+}
+h1 {
+  font-size: var(--heading-display);
+  font-weight: 400;
+  line-height: 0.98;
+}
+h2 {
+  font-size: var(--heading-section);
+  font-weight: 400;
+  line-height: 1.08;
+}
+h3 {
+  font-size: var(--heading-item);
+  font-weight: 500;
+  line-height: 1.2;
 }
 
 [data-barba-namespace=home] {
@@ -66,7 +92,7 @@ input {
   align-items: center;
 }
 .brand img {
-  width: 148px;
+  width: 177.6px;
   height: auto;
   mix-blend-mode: multiply;
 }
@@ -205,11 +231,7 @@ input {
   color: rgba(255, 255, 255, 0.72);
 }
 .hero h1 {
-  font:
-    400 clamp(64px, 6vw, 96px)/0.98 "Manrope",
-    sans-serif;
   letter-spacing: -0.06em;
-  margin: 0;
 }
 h1 em,
 h2 em {
@@ -345,11 +367,6 @@ h2 em {
 .intro-grid > h2 {
   grid-column: 1 / span 7;
 }
-h2 {
-  font: 400 57px/1.08 "Manrope";
-  letter-spacing: -0.055em;
-  margin: 0;
-}
 .intro-copy {
   grid-column: 9 / -1;
   padding-top: 8px;
@@ -435,8 +452,7 @@ h2 {
   color: #7a777b;
 }
 .service-list h3 {
-  font: 500 24px/1.2 "Manrope";
-  margin: 0;
+  letter-spacing: -0.025em;
 }
 .service-list p {
   color: #716f73;
@@ -548,8 +564,8 @@ h2 {
   font-size: 11px;
 }
 .steps h3 {
-  font: 500 24px/1.2 "Manrope";
   margin: 70px 0 18px;
+  letter-spacing: -0.025em;
 }
 .steps p {
   color: #716f73;
@@ -624,8 +640,8 @@ h2 {
 .enquiry > .quote-form {
   grid-column: 7 / -1;
 }
-.enquiry-intro h2 {
-  font-size: 60px;
+.enquiry-intro :is(h1, h2) {
+  font-size: var(--heading-section);
   margin: 65px 0 30px;
 }
 .enquiry-intro > p {
@@ -723,7 +739,7 @@ h2 {
   border-bottom: 1px solid var(--line);
 }
 .footer-top h2 {
-  font-size: 45px;
+  font-size: var(--heading-compact);
   text-align: right;
 }
 .footer-grid {
@@ -800,11 +816,7 @@ h2 {
   grid-column: 1 / span 8;
 }
 .aircraft-hero h1 {
-  font:
-    400 clamp(64px, 6vw, 92px)/0.98 "Manrope",
-    sans-serif;
   letter-spacing: -0.06em;
-  margin: 0;
 }
 .aircraft-hero h1 em {
   font-style: italic;
@@ -898,11 +910,7 @@ h2 {
   font-weight: 600;
 }
 .aircraft-card h3 {
-  font:
-    500 23px/1.15 "Manrope",
-    sans-serif;
   letter-spacing: -0.035em;
-  margin: 0;
 }
 .aircraft-card p {
   margin: 9px 0 0;
@@ -941,14 +949,14 @@ h2 {
   display: grid;
   align-items: end;
 }
-.aircraft-cta > h2 {
+.aircraft-cta > div:first-child {
   grid-column: 1 / span 7;
 }
 .aircraft-cta > div:last-child {
   grid-column: 9 / -1;
 }
 .aircraft-cta h2 {
-  font-size: 58px;
+  font-size: var(--heading-section);
 }
 .aircraft-cta > div:last-child > p {
   color: rgba(255, 255, 255, 0.65);
@@ -976,13 +984,6 @@ h2 {
 }
 .contact-page > .quote-form {
   grid-column: 7 / -1;
-}
-.contact-page .enquiry-intro h1 {
-  font:
-    400 67px/1.04 "Manrope",
-    sans-serif;
-  letter-spacing: -0.055em;
-  margin: 64px 0 30px;
 }
 .contact-page .enquiry-intro > p {
   color: rgba(255, 255, 255, 0.62);
@@ -1077,11 +1078,7 @@ h2 {
   will-change: transform;
 }
 .legal-hero h1 {
-  font:
-    400 80px/0.98 "Manrope",
-    sans-serif;
   letter-spacing: -0.06em;
-  margin: 0;
 }
 .legal-hero h1 em {
   font:
@@ -1109,7 +1106,7 @@ h2 {
   max-width: 860px;
 }
 .legal-copy > h2 {
-  font-size: 43px;
+  font-size: var(--heading-compact);
   margin-bottom: 48px;
 }
 .legal-copy > h2:not(:first-child) {
@@ -1123,9 +1120,7 @@ h2 {
   border-top: 1px solid var(--line);
 }
 .legal-copy h3 {
-  font:
-    500 28px/1.2 "Manrope",
-    sans-serif;
+  font-size: clamp(var(--heading-item), 2vw, 28px);
   letter-spacing: -0.035em;
   margin: 0 0 30px;
 }
@@ -1142,21 +1137,22 @@ h2 {
 @media (max-width: 1180px) {
   :root {
     --page-gutter: clamp(28px, 5vw, 72px);
+    --heading-section: 48px;
   }
 
   .section-pad {
     padding-block: 96px;
   }
 
-  h2 {
-    font-size: 48px;
-  }
 }
 
 @media (max-width: 900px) {
   :root {
     --page-gutter: clamp(20px, 6vw, 48px);
     --grid-gap: 18px;
+    --heading-display: clamp(45px, 12vw, 72px);
+    --heading-section: clamp(38px, 10vw, 48px);
+    --heading-compact: 38px;
   }
 
   body {
@@ -1178,7 +1174,7 @@ h2 {
   }
 
   .brand img {
-    width: 126px;
+    width: 151.2px;
   }
 
   .menu-toggle {
@@ -1277,10 +1273,6 @@ h2 {
     padding-block: 72px;
   }
 
-  h2 {
-    font-size: clamp(38px, 10vw, 48px);
-  }
-
   .hero {
     height: calc(100svh - 72px);
     min-height: 620px;
@@ -1292,10 +1284,6 @@ h2 {
     width: auto;
   }
 
-  .hero h1 {
-    font-size: clamp(45px, 12vw, 68px);
-  }
-
   .hero-intro {
     margin: 24px 0 28px;
     font-size: 15px;
@@ -1304,14 +1292,18 @@ h2 {
   .hero-trust {
     height: auto;
     grid-template-columns: 1fr 1fr;
-    padding-block: 8px;
+    padding-block: 0;
   }
 
   .hero-trust > div,
   .hero-trust > div:first-child {
-    min-height: 110px;
-    padding: 18px 12px;
+    min-height: 0;
+    padding: 16px 12px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .hero-trust > div:not(.aca-badge) {
+    gap: 5px;
   }
 
   .hero-trust > div:nth-child(even) {
@@ -1460,10 +1452,12 @@ h2 {
     margin-top: 48px;
   }
 
-  .enquiry-intro h2,
-  .aircraft-cta h2 {
-    font-size: clamp(40px, 11vw, 54px);
+  .enquiry-intro :is(h1, h2) {
     margin-top: 44px;
+  }
+
+  .aircraft-cta h2 {
+    margin-top: 0;
   }
 
   .enquiry > .quote-form,
@@ -1483,7 +1477,6 @@ h2 {
   }
 
   .footer-top h2 {
-    font-size: 38px;
     text-align: left;
   }
 
@@ -1511,10 +1504,6 @@ h2 {
     padding-block: 84px 64px;
   }
 
-  .aircraft-hero h1 {
-    font-size: clamp(48px, 12vw, 72px);
-  }
-
   .aircraft-hero-stat {
     margin-top: 46px;
     padding: 30px 0 0;
@@ -1538,10 +1527,18 @@ h2 {
 
   .aircraft-cta {
     padding-block: 72px;
+    align-items: start;
+    row-gap: 48px;
   }
 
+  .aircraft-cta > div {
+    min-width: 0;
+  }
+
+  .aircraft-cta > div:first-child,
   .aircraft-cta > div:last-child {
-    margin-top: 34px;
+    grid-column: 1 / -1;
+    margin-top: 0;
   }
 
   .contact-page {
@@ -1557,10 +1554,6 @@ h2 {
     padding-block: 90px 60px;
   }
 
-  .legal-hero h1 {
-    font-size: clamp(52px, 13vw, 72px);
-  }
-
   .legal-intro {
     position: static;
   }
@@ -1569,9 +1562,6 @@ h2 {
     margin-top: 70px;
   }
 
-  .legal-copy > h2 {
-    font-size: 38px;
-  }
 }
 
 @media (max-width: 600px) {
@@ -1625,7 +1615,7 @@ h2 {
   }
 }
 
-@media (max-height: 800px) {
+@media (min-width: 901px) and (max-height: 800px) {
   .hero {
     height: calc(100dvh - 204px);
   }
@@ -1664,5 +1654,333 @@ h2 {
   .contact-details,
   .legal-hero > * {
     transform: none;
+  }
+}
+
+.chat-widget {
+  position: fixed;
+  right: clamp(18px, 2.5vw, 36px);
+  bottom: 24px;
+  z-index: 50;
+  color: var(--ink);
+  font-family: "DM Sans", sans-serif;
+}
+
+.chat-widget button,
+.chat-widget input,
+.chat-widget textarea {
+  font: inherit;
+}
+
+.chat-toggle {
+  display: grid;
+  width: 62px;
+  height: 62px;
+  margin-left: auto;
+  padding: 15px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 14px 34px rgba(23, 23, 25, 0.24);
+  color: var(--white);
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.chat-toggle:hover {
+  transform: translateY(-3px);
+  background: var(--navy-deep);
+}
+
+.chat-toggle svg {
+  width: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.chat-toggle:focus-visible,
+.chat-widget button:focus-visible,
+.chat-widget input:focus-visible,
+.chat-widget textarea:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+.chat-teaser,
+.chat-panel {
+  position: absolute;
+  right: 0;
+  bottom: 78px;
+  background: var(--white);
+  box-shadow: 0 18px 48px rgba(23, 23, 25, 0.18);
+}
+
+.chat-teaser {
+  width: 320px;
+  border-top: 3px solid var(--red);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+.chat-teaser::after {
+  position: absolute;
+  right: 20px;
+  bottom: -9px;
+  width: 18px;
+  height: 18px;
+  background: var(--white);
+  content: "";
+  transform: rotate(45deg);
+}
+
+.chat-teaser-open {
+  display: flex;
+  width: 100%;
+  min-height: 88px;
+  padding: 17px 48px 17px 18px;
+  align-items: center;
+  gap: 14px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.chat-teaser img,
+.chat-panel-header img {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--red);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chat-teaser-open span {
+  line-height: 1.45;
+}
+
+.chat-teaser-open strong,
+.chat-panel-header span {
+  display: block;
+}
+
+.chat-teaser-close,
+.chat-panel-close {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.chat-teaser-close {
+  position: absolute;
+  top: 5px;
+  right: 3px;
+}
+
+.chat-panel {
+  width: min(380px, calc(100vw - 32px));
+  max-height: calc(100dvh - 120px);
+  overflow: hidden;
+  visibility: hidden;
+  border-top: 3px solid var(--red);
+  background: var(--paper);
+  opacity: 0;
+  transform: translateY(16px) scale(0.98);
+  transform-origin: bottom right;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+}
+
+.is-open .chat-panel {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+}
+
+.is-open .chat-teaser,
+.is-teaser-dismissed .chat-teaser {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.chat-panel-header {
+  display: grid;
+  min-height: 92px;
+  padding: 16px 10px 16px 18px;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  background: var(--navy-deep);
+  color: var(--white);
+}
+
+.chat-panel-header strong {
+  font-family: "Manrope", sans-serif;
+  font-size: 18px;
+}
+
+.chat-panel-header span {
+  margin-top: 3px;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 13px;
+}
+
+.chat-panel-close {
+  color: var(--white);
+}
+
+.chat-panel-body {
+  max-height: calc(100dvh - 212px);
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.chat-intro {
+  margin: 0 0 18px;
+  padding: 15px;
+  border-left: 3px solid var(--red);
+  background: var(--mist);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.chat-form {
+  display: grid;
+  gap: 11px;
+}
+
+.chat-form > label:not(.chat-consent) > span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.chat-form input:not([type="checkbox"]),
+.chat-form textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--white);
+  color: var(--ink);
+}
+
+.chat-form input:not([type="checkbox"]) {
+  height: 50px;
+  padding: 0 14px;
+}
+
+.chat-form textarea {
+  min-height: 112px;
+  padding: 14px;
+  resize: vertical;
+}
+
+.chat-form input:focus,
+.chat-form textarea:focus {
+  border-color: var(--red);
+}
+
+.chat-consent {
+  display: grid;
+  margin-top: 3px;
+  padding: 13px;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 10px;
+  background: var(--mist);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.chat-consent input {
+  width: 17px;
+  height: 17px;
+  margin: 0;
+  accent-color: var(--red);
+}
+
+.chat-send {
+  display: flex;
+  min-height: 52px;
+  margin-top: 3px;
+  padding: 0 20px;
+  align-items: center;
+  justify-content: space-between;
+  border: 0;
+  background: var(--red);
+  color: var(--white);
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.chat-send:hover {
+  background: var(--navy-deep);
+}
+
+.chat-send > span {
+  font-size: 22px;
+}
+
+.chat-status {
+  min-height: 18px;
+  margin: 0;
+  color: var(--red);
+  font-size: 12px;
+  text-align: center;
+}
+
+body.menu-open .chat-widget {
+  visibility: hidden;
+  opacity: 0;
+}
+
+@media (max-width: 600px) {
+  .chat-widget {
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .chat-toggle {
+    width: 58px;
+    height: 58px;
+  }
+
+  .chat-teaser {
+    display: none;
+  }
+
+  .chat-panel {
+    bottom: 70px;
+    width: calc(100vw - 24px);
+    max-height: calc(100dvh - 94px);
+  }
+
+  .chat-panel-body {
+    max-height: calc(100dvh - 189px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-widget *,
+  .chat-widget *::before,
+  .chat-widget *::after {
+    transition: none !important;
   }
 }
