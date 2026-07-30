@@ -15,9 +15,9 @@ Bespoke Aviation Limited sources and compares suitable aircraft worldwide for bu
 ## Primary pages
 
 - [Home](${url()})
-- [Available aircraft](${url("available-aircraft.html")})
-- [Request a quote](${url("contact-us.html")})
-- [Privacy policy and charter terms](${url("terms.html")})
+- [Available aircraft](${url("available-aircraft")})
+- [Request a quote](${url("contact-us")})
+- [Privacy policy and charter terms](${url("terms")})
 
 ## Services and credentials
 

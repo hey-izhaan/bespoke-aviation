@@ -41,7 +41,7 @@ const { aircraft } = Astro.props;
     <span class="aircraft-type">{aircraft.type}</span>
     <h3>{aircraft.name}</h3>
     <p>Up to {aircraft.passengers} passengers</p>
-    <a href={withBase("contact-us.html")} aria-label={`Request a quote for the ${aircraft.name}`}>
+    <a href={withBase("contact-us")} aria-label={`Request a quote for the ${aircraft.name}`}>
       <span class="airplane-icon plane-up-right" aria-hidden="true"></span>
     </a>
   </div>

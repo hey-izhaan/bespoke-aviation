@@ -9,9 +9,9 @@ const base = trimmedBase ? `/${trimmedBase}/` : "/";
 const root = new URL(base, `${SITE_URL.replace(/\/$/, "")}/`);
 const paths = [
   "",
-  "available-aircraft.html",
-  "contact-us.html",
-  "terms.html",
+  "available-aircraft",
+  "contact-us",
+  "terms",
 ];
 
 const payload = {

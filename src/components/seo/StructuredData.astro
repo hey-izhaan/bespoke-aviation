@@ -79,7 +79,7 @@ const graph: Record<string, unknown>[] = [
     url: siteUrl.href,
     availableChannel: {
       "@type": "ServiceChannel",
-      serviceUrl: new URL(withBase("contact-us.html"), site).href,
+      serviceUrl: new URL(withBase("contact-us"), site).href,
       servicePhone: {
         "@type": "ContactPoint",
         telephone: "+447797923575",

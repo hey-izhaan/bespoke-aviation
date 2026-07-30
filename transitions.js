@@ -4,9 +4,9 @@ const transitionDuration = matchMedia("(prefers-reduced-motion: reduce)").matche
 
 function updateNavigation(namespace) {
   const currentHref = {
-    home: "index.html",
-    aircraft: "available-aircraft.html",
-    contact: "contact-us.html",
+    home: "/",
+    aircraft: "available-aircraft",
+    contact: "contact-us",
   }[namespace];
 
   document.querySelectorAll(".main-nav a, .header-cta").forEach((link) => {

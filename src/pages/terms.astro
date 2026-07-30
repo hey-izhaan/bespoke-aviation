@@ -1,8 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { withBase } from "../utils/paths";
 import termsDocument from "../../terms.html?raw";
 
-const mainContent = termsDocument.match(/<main id="top">([\s\S]*?)<\/main>/)?.[1];
+const legacyMainContent = termsDocument.match(/<main id="top">([\s\S]*?)<\/main>/)?.[1];
+const mainContent = legacyMainContent?.replace(
+  /href="contact-us\.html"/g,
+  `href="${withBase("contact-us")}"`,
+);
 
 if (!mainContent) {
   throw new Error("Unable to extract the legal content from terms.html.");

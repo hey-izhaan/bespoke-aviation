@@ -25,8 +25,8 @@ const { showCredits = false } = Astro.props;
     <div>
       <span class="footer-label">Explore</span>
       <a href={withBase()}>Home</a>
-      <a href={withBase("available-aircraft.html")}>Available Aircraft</a>
-      <a href={withBase("contact-us.html")}>Request a Quote</a>
+      <a href={withBase("available-aircraft")}>Available Aircraft</a>
+      <a href={withBase("contact-us")}>Request a Quote</a>
     </div>
     <div>
       <span class="footer-label">Follow</span>
@@ -57,7 +57,7 @@ const { showCredits = false } = Astro.props;
 
   <div class="footer-bottom">
     <span>© 2026 Bespoke Aviation Ltd.</span>
-    <div><a href={`${withBase("terms.html")}#terms`}>Terms</a></div>
+    <div><a href={`${withBase("terms")}#terms`}>Terms</a></div>
     <a href="#top">Back to top <span class="airplane-icon" aria-hidden="true"></span></a>
   </div>
 </footer>

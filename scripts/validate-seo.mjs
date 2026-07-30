@@ -10,9 +10,9 @@ const dist = join(process.cwd(), "dist");
 
 const publicPages = {
   "index.html": new URL("", root).href,
-  "available-aircraft.html": new URL("available-aircraft.html", root).href,
-  "contact-us.html": new URL("contact-us.html", root).href,
-  "terms.html": new URL("terms.html", root).href,
+  "available-aircraft/index.html": new URL("available-aircraft", root).href,
+  "contact-us/index.html": new URL("contact-us", root).href,
+  "terms/index.html": new URL("terms", root).href,
 };
 
 const read = (file) => readFileSync(join(dist, file), "utf8");
@@ -153,7 +153,7 @@ assert(
 
 const llms = read("llms.txt");
 assert(
-  llms.includes(new URL("contact-us.html", root).href),
+  llms.includes(new URL("contact-us", root).href),
   "llms.txt contains incorrect page URLs",
 );
 

@@ -27,7 +27,9 @@ const {
   noIndex = false,
 } = Astro.props;
 const site = Astro.site ?? Astro.url;
-const canonicalPath = Astro.url.pathname.replace(/\/index\.html$/, "/");
+const canonicalPath = currentPage === "home"
+  ? withBase()
+  : Astro.url.pathname.replace(/\/$/, "");
 const pageUrl = new URL(canonicalPath, site);
 const ogImageUrl = new URL(withBase("og-image.jpg"), site);
 const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;

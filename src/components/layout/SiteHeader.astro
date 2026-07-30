@@ -25,13 +25,13 @@ const { currentPage } = Astro.props;
     <nav class="main-nav" aria-label="Primary navigation">
       <a href={withBase()} aria-current={currentPage === "home" ? "page" : undefined}>Home</a>
       <a
-        href={withBase("available-aircraft.html")}
+        href={withBase("available-aircraft")}
         aria-current={currentPage === "aircraft" ? "page" : undefined}
       >Available Aircraft</a>
     </nav>
     <a
       class="header-cta"
-      href={withBase("contact-us.html")}
+      href={withBase("contact-us")}
       aria-current={currentPage === "contact" ? "page" : undefined}
     >
       Request a quote <span class="airplane-icon plane-up-right" aria-hidden="true"></span>
