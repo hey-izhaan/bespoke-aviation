@@ -9,36 +9,110 @@ import { withBase } from "../utils/paths";
   noIndex
 >
   <main class="not-found" id="top">
-    <p class="eyebrow">Error 404</p>
-    <h1>That route has<br /><em>left the flight plan.</em></h1>
-    <p>The page may have moved or the address may be incorrect.</p>
-    <a class="button" href={withBase()}>
-      Return home <span class="airplane-icon plane-up-right" aria-hidden="true"></span>
-    </a>
+    <div class="container not-found-container">
+      <div class="not-found-copy">
+        <div class="error-title">
+          <h1>
+            <span>404</span>
+            <span class="error-message">This page is <em>off the radar.</em></span>
+          </h1>
+        </div>
+        <a class="home-link" href={withBase()}>
+          Find your way home
+          <img src={withBase("Plane%20Arrow%20Black.svg")} alt="" aria-hidden="true" />
+        </a>
+      </div>
+    </div>
   </main>
 </BaseLayout>
 
 <style>
   .not-found {
-    min-height: 70svh;
-    padding: clamp(80px, 12vw, 150px) var(--page-gutter);
-    background: var(--color-paper);
+    position: relative;
+    min-height: calc(100svh - 92px);
+    overflow: hidden;
+    background:
+      linear-gradient(115deg, rgba(255, 255, 255, 0.5), transparent 45%),
+      var(--color-paper);
   }
 
-  .not-found h1 {
-    max-width: 900px;
+  .not-found-container {
+    min-height: inherit;
+    display: flex;
+    align-items: center;
   }
 
-  .not-found > p:not(.eyebrow) {
-    max-width: 520px;
-    margin: 32px 0;
-    color: #646267;
-    line-height: 1.7;
+  .not-found-copy {
+    width: 100%;
+    min-width: 0;
   }
 
-  .not-found .button {
-    width: min(100%, 260px);
-    color: var(--color-white);
-    background: var(--color-accent);
+  .error-title h1 {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .error-message {
+    max-width: 9ch;
+    font-size: var(--text-section);
+    line-height: 1.08;
+  }
+
+  .error-message em {
+    color: var(--color-accent);
+    font-family: Georgia, serif;
+    font-weight: 400;
+  }
+
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+    margin-top: clamp(52px, 6vw, 80px);
+    padding-bottom: 8px;
+    border-bottom: 1px solid currentColor;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .home-link img {
+    width: 14px;
+    height: 14px;
+    transition: translate var(--motion-fast) var(--ease-out);
+  }
+
+  .home-link:hover img,
+  .home-link:focus-visible img {
+    translate: 3px -3px;
+  }
+
+  @media (max-width: 900px) {
+    .not-found {
+      min-height: calc(100svh - 72px);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .not-found-container {
+      align-items: stretch;
+    }
+
+    .not-found-copy {
+      min-height: inherit;
+      padding-block: 34px 52px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    .home-link {
+      position: static;
+      margin-top: 0;
+      translate: none;
+      white-space: nowrap;
+    }
   }
 </style>
