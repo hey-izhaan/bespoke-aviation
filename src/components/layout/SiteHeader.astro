@@ -1,4 +1,6 @@
 ---
+import { withBase } from "../../utils/paths";
+
 interface Props {
   currentPage?: "home" | "aircraft" | "contact" | "terms";
 }
@@ -7,8 +9,8 @@ const { currentPage } = Astro.props;
 ---
 
 <header class="site-header">
-  <a class="brand" href="/" aria-label="Bespoke Aviation home">
-    <img src="/Bespoke%20Aviation.png" alt="Bespoke Aviation" />
+  <a class="brand" href={withBase()} aria-label="Bespoke Aviation home">
+    <img src={withBase("Bespoke%20Aviation.png")} alt="Bespoke Aviation" />
   </a>
 
   <button
@@ -21,15 +23,15 @@ const { currentPage } = Astro.props;
 
   <div class="header-actions" id="site-menu">
     <nav class="main-nav" aria-label="Primary navigation">
-      <a href="/" aria-current={currentPage === "home" ? "page" : undefined}>Home</a>
+      <a href={withBase()} aria-current={currentPage === "home" ? "page" : undefined}>Home</a>
       <a
-        href="/available-aircraft.html"
+        href={withBase("available-aircraft.html")}
         aria-current={currentPage === "aircraft" ? "page" : undefined}
       >Available Aircraft</a>
     </nav>
     <a
       class="header-cta"
-      href="/contact-us.html"
+      href={withBase("contact-us.html")}
       aria-current={currentPage === "contact" ? "page" : undefined}
     >
       Request a quote <span class="airplane-icon plane-up-right" aria-hidden="true"></span>

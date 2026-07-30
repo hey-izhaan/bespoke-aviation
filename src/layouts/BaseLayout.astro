@@ -8,6 +8,7 @@ import ChatWidget from "../components/layout/ChatWidget.astro";
 import SiteFooter from "../components/layout/SiteFooter.astro";
 import SiteHeader from "../components/layout/SiteHeader.astro";
 import SiteScripts from "../components/layout/SiteScripts.astro";
+import { withBase } from "../utils/paths";
 
 interface Props {
   title: string;
@@ -25,18 +26,18 @@ const { title, description, currentPage, showCredits = false } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/png" sizes="224x224" href="/Favicon.png" />
-    <link rel="apple-touch-icon" href="/Favicon.png" />
+    <link rel="icon" type="image/png" sizes="224x224" href={withBase("Favicon.png")} />
+    <link rel="apple-touch-icon" href={withBase("Favicon.png")} />
     <link
       rel="preload"
-      href="/fonts/dm-sans-latin.woff2"
+      href={withBase("fonts/dm-sans-latin.woff2")}
       as="font"
       type="font/woff2"
       crossorigin
     />
     <link
       rel="preload"
-      href="/fonts/manrope-latin.woff2"
+      href={withBase("fonts/manrope-latin.woff2")}
       as="font"
       type="font/woff2"
       crossorigin

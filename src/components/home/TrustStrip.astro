@@ -1,9 +1,13 @@
+---
+import { withBase } from "../../utils/paths";
+---
+
 <section class="hero-trust" aria-label="Bespoke Aviation credentials">
   <div><strong>30+</strong><span>Years of aviation<br />experience</span></div>
   <div><strong>500+</strong><span>Successful charters<br />completed</span></div>
   <div><strong>Global</strong><span>Access to thousands<br />of aircraft</span></div>
   <div class="aca-badge">
-    <img src="/aca-logo.png" alt="The Air Charter Association" />
+    <img src={withBase("aca-logo.png")} alt="The Air Charter Association" />
     <span>Accredited member</span>
   </div>
 </section>

@@ -1,6 +1,7 @@
 ---
 import { getImage } from "astro:assets";
 import heroPoster from "../../assets/images/hero-poster.png";
+import { withBase } from "../../utils/paths";
 
 const optimizedPoster = await getImage({
   src: heroPoster,
@@ -12,7 +13,7 @@ const optimizedPoster = await getImage({
 
 <section class="hero">
   <video class="hero-video" autoplay muted loop playsinline poster={optimizedPoster.src}>
-    <source src="/Hero%20Video.mp4" type="video/mp4" />
+    <source src={withBase("Hero%20Video.mp4")} type="video/mp4" />
   </video>
   <div class="hero-overlay"></div>
   <div class="hero-content">

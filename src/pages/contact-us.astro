@@ -4,6 +4,7 @@ import QuoteForm from "../components/forms/QuoteForm.astro";
 import SectionLabel from "../components/ui/SectionLabel.astro";
 import markPhoto from "../assets/images/mark-rowlands-baseline.jpg";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { withBase } from "../utils/paths";
 ---
 
 <BaseLayout
@@ -30,7 +31,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
           <a href="tel:+447797923575"><span>Telephone</span>+44 (0)7797 923 575</a>
         </div>
         <div class="contact-accreditation">
-          <img src="/aca-logo.png" alt="The Air Charter Association" />
+          <img src={withBase("aca-logo.png")} alt="The Air Charter Association" />
           <p>Accredited by the leading worldwide trade association for aircraft charter professionals.</p>
         </div>
       </div>

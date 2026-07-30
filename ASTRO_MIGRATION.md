@@ -90,6 +90,8 @@ Astro will use file-format output during migration so existing indexed and share
 
 ## Phase 6 — Verification
 
+- [ ] Deploy the Astro build to GitHub Pages through GitHub Actions.
+  - Check: the Pages workflow succeeds and the project-site URL serves the Astro output with working assets and internal links.
 - [x] Build the production site.
   - Check: `npm run build` exits successfully with no errors.
 - [x] Verify `/`, `/available-aircraft.html`, `/contact-us.html`, and `/terms.html` visually.

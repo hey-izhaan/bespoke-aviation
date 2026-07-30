@@ -1,4 +1,6 @@
 ---
+import { withBase } from "../../utils/paths";
+
 interface Props {
   showCredits?: boolean;
 }
@@ -8,8 +10,8 @@ const { showCredits = false } = Astro.props;
 
 <footer class="footer" id="contact">
   <div class="footer-top">
-    <a class="brand footer-brand" href="/">
-      <img src="/Bespoke%20Aviation.png" alt="Bespoke Aviation" />
+    <a class="brand footer-brand" href={withBase()}>
+      <img src={withBase("Bespoke%20Aviation.png")} alt="Bespoke Aviation" />
     </a>
     <h2>Private Aviation.<br /><em>Personally Managed.</em></h2>
   </div>
@@ -22,9 +24,9 @@ const { showCredits = false } = Astro.props;
     </div>
     <div>
       <span class="footer-label">Explore</span>
-      <a href="/">Home</a>
-      <a href="/available-aircraft.html">Available Aircraft</a>
-      <a href="/contact-us.html">Request a Quote</a>
+      <a href={withBase()}>Home</a>
+      <a href={withBase("available-aircraft.html")}>Available Aircraft</a>
+      <a href={withBase("contact-us.html")}>Request a Quote</a>
     </div>
     <div>
       <span class="footer-label">Follow</span>
@@ -40,7 +42,7 @@ const { showCredits = false } = Astro.props;
       >LinkedIn</a>
     </div>
     <div class="footer-accreditation">
-      <img src="/aca-logo.png" alt="The Air Charter Association" />
+      <img src={withBase("aca-logo.png")} alt="The Air Charter Association" />
       <span>Accredited Member</span>
     </div>
   </div>
@@ -55,7 +57,7 @@ const { showCredits = false } = Astro.props;
 
   <div class="footer-bottom">
     <span>© 2026 Bespoke Aviation Ltd.</span>
-    <div><a href="/terms.html#terms">Terms</a></div>
+    <div><a href={`${withBase("terms.html")}#terms`}>Terms</a></div>
     <a href="#top">Back to top <span class="airplane-icon" aria-hidden="true"></span></a>
   </div>
 </footer>
