@@ -76,8 +76,29 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
     />
     <meta name="theme-color" content="#121b2a" />
     <link rel="manifest" href={withBase("manifest.webmanifest")} />
-    <link rel="icon" type="image/png" sizes="224x224" href={withBase("Favicon.png")} />
-    <link rel="apple-touch-icon" href={withBase("Favicon.png")} />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href={withBase("Favicons/Favicon.svg")}
+    />
+    <link rel="icon" href={withBase("favicon.ico")} sizes="any" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href={withBase("Favicons/favicon-32x32.png")}
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href={withBase("Favicons/favicon-16x16.png")}
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href={withBase("Favicons/apple-touch-icon.png")}
+    />
     <link
       rel="preload"
       href={withBase("fonts/dm-sans-latin.woff2")}

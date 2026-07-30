@@ -60,6 +60,10 @@ for (const [file, expectedCanonical] of Object.entries(publicPages)) {
     `${file}: Twitter card metadata is missing`,
   );
   assert(
+    html.includes('rel="icon" type="image/svg+xml"'),
+    `${file}: SVG favicon is missing`,
+  );
+  assert(
     html.includes(
       'name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"',
     ),
@@ -138,6 +142,14 @@ assert(
 
 const manifest = JSON.parse(read("manifest.webmanifest"));
 assert(manifest.start_url === root.href, "The manifest start URL is incorrect");
+assert(
+  manifest.icons.some((icon) => icon.sizes === "192x192"),
+  "The manifest 192x192 icon is missing",
+);
+assert(
+  manifest.icons.some((icon) => icon.sizes === "512x512"),
+  "The manifest 512x512 icon is missing",
+);
 
 const llms = read("llms.txt");
 assert(
@@ -152,6 +164,13 @@ for (const requiredFile of [
   "llms.txt",
   "manifest.webmanifest",
   "404.html",
+  "favicon.ico",
+  "Favicons/Favicon.svg",
+  "Favicons/favicon-16x16.png",
+  "Favicons/favicon-32x32.png",
+  "Favicons/apple-touch-icon.png",
+  "Favicons/android-chrome-192x192.png",
+  "Favicons/android-chrome-512x512.png",
 ]) {
   assert(existsSync(join(dist, requiredFile)), `${requiredFile} was not built`);
 }
