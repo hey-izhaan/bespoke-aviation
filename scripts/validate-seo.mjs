@@ -1,8 +1,8 @@
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
-const site = process.env.SITE_URL ?? "https://hey-izhaan.github.io";
-const rawBase = process.env.BASE_PATH ?? "/bespoke-aviation";
+const site = process.env.SITE_URL ?? "https://www.bespoke-aviation.com";
+const rawBase = process.env.BASE_PATH ?? "/";
 const trimmedBase = rawBase.replace(/^\/+|\/+$/g, "");
 const base = trimmedBase ? `/${trimmedBase}/` : "/";
 const root = new URL(base, `${site.replace(/\/$/, "")}/`);
@@ -36,12 +36,35 @@ for (const [file, expectedCanonical] of Object.entries(publicPages)) {
       /<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi,
     ),
   ];
+  const internalRouteLinks = [
+    ...html.matchAll(/href="(\/[^"#?]*)"/gi),
+  ]
+    .map(([, href]) => href)
+    .filter((href) => !href.includes("."));
 
+  assert(
+    [...html.matchAll(/data-barba="wrapper"/gi)].length === 1,
+    `${file}: expected one Barba wrapper`,
+  );
+  assert(
+    [...html.matchAll(/data-barba="container"/gi)].length === 1,
+    `${file}: expected one Barba container`,
+  );
   assert(canonicalTags.length === 1, `${file}: expected one canonical tag`);
   assert(
     canonicalTags[0][1] === expectedCanonical,
     `${file}: incorrect canonical URL`,
   );
+  assert(
+    file === "index.html" || !canonicalTags[0][1].endsWith("/"),
+    `${file}: canonical URL must not have a trailing slash`,
+  );
+  for (const href of internalRouteLinks) {
+    assert(
+      href === base || !href.endsWith("/"),
+      `${file}: internal route URL must not have a trailing slash: ${href}`,
+    );
+  }
   assert(titleTags.length === 1, `${file}: expected one title tag`);
   assert(
     descriptionTags.length === 1,

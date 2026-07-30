@@ -70,8 +70,8 @@ Astro will use file-format output during migration so existing indexed and share
   - Check: behavior initializes once, survives navigation, and disables cleanly for reduced motion.
 - [x] Rebuild testimonial and aircraft galleries.
   - Check: controls, counts, keyboard behavior, and lazy loading work.
-- [x] Replace Barba/GSAP page fading with a progressive CSS entry transition.
-  - Check: navigation works without JavaScript and reduced motion removes animation.
+- [x] Integrate bundled Barba/GSAP page fading with a progressive CSS entry fallback.
+  - Check: navigation works without JavaScript, page behavior reinitializes after transitions, and reduced motion removes animation.
 - [ ] Preserve quote/contact form behavior.
   - Check: validation works and a valid submission opens a correctly populated email enquiry.
 
@@ -103,7 +103,7 @@ Astro will use file-format output during migration so existing indexed and share
 - [x] Verify browser console output.
   - Check: no uncaught errors appear on any route.
 - [x] Verify production asset output.
-  - Check: no Barba, GSAP, unpkg, or jsDelivr references remain; AVIF/WebP output exists.
+  - Check: Barba and GSAP are npm-bundled with no unpkg or jsDelivr requests; AVIF/WebP output exists.
 - [x] Record any intentional differences below.
 
 ## Phase 7 — Technical SEO and AI discovery

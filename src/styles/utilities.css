@@ -2,6 +2,7 @@
   width: min(100%, var(--content-width));
   margin-inline: auto;
   padding-inline: var(--page-gutter);
+  height: 100%;
 }
 
 .section-space {

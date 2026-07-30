@@ -1,5 +1,7 @@
 ---
 import "lenis/dist/lenis.css";
+import "swiper/css";
+import "swiper/css/effect-fade";
 import "../styles/tokens.css";
 import "../styles/global.css";
 import "../styles/utilities.css";
@@ -36,6 +38,7 @@ const pageUrl = new URL(canonicalPath, site);
 const ogImageUrl = new URL(withBase("og-image.jpg"), site);
 const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
+const namespace = currentPage ?? "not-found";
 ---
 
 <!doctype html>
@@ -130,10 +133,12 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       />
     )}
   </head>
-  <body>
+  <body data-barba="wrapper">
     <SiteHeader currentPage={currentPage} />
-    <slot />
-    <SiteFooter showCredits={showCredits} />
+    <div data-barba="container" data-barba-namespace={namespace}>
+      <slot />
+      <SiteFooter showCredits={showCredits} />
+    </div>
     <ChatWidget />
     <SiteScripts />
   </body>

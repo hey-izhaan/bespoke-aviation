@@ -1,7 +1,27 @@
 <script>
+  import barba from "@barba/core";
+  import { gsap } from "gsap";
   import Lenis from "lenis";
+  import Swiper from "swiper";
+  import { EffectFade, Keyboard, Navigation } from "swiper/modules";
 
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const sliderInstances = new Map<HTMLElement, Swiper>();
+  const quoteFormHandlers = new Map<HTMLFormElement, EventListener>();
+
+  const transitionDuration = () => reducedMotion.matches ? 0 : 0.35;
+  const sliderSpeed = () => reducedMotion.matches ? 0 : 550;
+  const fadeTo = (
+    container: HTMLElement | null,
+    opacity: number,
+    ease: string,
+  ) => container
+    ? gsap.to(container, {
+        opacity,
+        duration: transitionDuration(),
+        ease,
+      })
+    : Promise.resolve();
 
   const updateParallax = () => {
     const footer = document.querySelector<HTMLElement>(".footer");
@@ -30,6 +50,238 @@
     window.bespokeLenis = new Lenis({ autoRaf: true, anchors: true });
     window.bespokeLenis.on("scroll", updateParallax);
     addEventListener("resize", updateParallax);
-    updateParallax();
   }
+
+  const updateTestimonialCount = (
+    swiper: Swiper,
+    count: HTMLElement | null | undefined,
+    total: number,
+  ) => {
+    if (!count) return;
+    count.textContent =
+      `${String(swiper.realIndex + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
+  };
+
+  const initializeSliders = (container: HTMLElement) => {
+    container.querySelectorAll<HTMLElement>(".testimonial-swiper").forEach((slider) => {
+      if (sliderInstances.has(slider)) return;
+
+      const copy = slider.closest<HTMLElement>(".testimonial-copy");
+      const count = copy?.querySelector<HTMLElement>(".testimonial-count");
+      const total = slider.querySelectorAll(".swiper-slide").length;
+      const instance = new Swiper(slider, {
+        modules: [EffectFade, Keyboard, Navigation],
+        slidesPerView: 1,
+        speed: sliderSpeed(),
+        effect: "fade",
+        fadeEffect: { crossFade: true },
+        autoHeight: true,
+        loop: true,
+        grabCursor: true,
+        keyboard: { enabled: true, onlyInViewport: true },
+        navigation: {
+          prevEl: copy?.querySelector<HTMLElement>(".testimonial-prev"),
+          nextEl: copy?.querySelector<HTMLElement>(".testimonial-next"),
+        },
+        on: {
+          init: (swiper) => updateTestimonialCount(swiper, count, total),
+          slideChange: (swiper) => updateTestimonialCount(swiper, count, total),
+        },
+      });
+      sliderInstances.set(slider, instance);
+    });
+
+    container.querySelectorAll<HTMLElement>(".aircraft-swiper").forEach((slider) => {
+      if (sliderInstances.has(slider)) return;
+
+      const instance = new Swiper(slider, {
+        modules: [EffectFade, Keyboard, Navigation],
+        slidesPerView: 1,
+        speed: sliderSpeed(),
+        effect: "fade",
+        fadeEffect: { crossFade: true },
+        grabCursor: true,
+        rewind: true,
+        watchOverflow: true,
+        keyboard: { enabled: true, onlyInViewport: true },
+        navigation: {
+          prevEl: slider.querySelector<HTMLElement>(".aircraft-slider-prev"),
+          nextEl: slider.querySelector<HTMLElement>(".aircraft-slider-next"),
+        },
+      });
+      sliderInstances.set(slider, instance);
+    });
+  };
+
+  const handleQuoteSubmit = (event: Event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (!(form instanceof HTMLFormElement) || !form.reportValidity()) return;
+
+    const data = new FormData(form);
+    const body = [
+      `Departure: ${data.get("departure") || "Not provided"}`,
+      `Destination: ${data.get("destination") || "Not provided"}`,
+      `Date: ${data.get("date") || "Not provided"}`,
+      `Passengers: ${data.get("passengers")}`,
+      `Phone: ${data.get("phone") || "Not provided"}`,
+      `Email: ${data.get("email")}`,
+    ].join("\n");
+
+    location.href =
+      `mailto:mark@bespoke-aviation.com?subject=${encodeURIComponent("Private charter enquiry")}&body=${encodeURIComponent(body)}`;
+  };
+
+  const initializeQuoteForms = (container: HTMLElement) => {
+    container.querySelectorAll<HTMLFormElement>(".quote-form").forEach((form) => {
+      if (quoteFormHandlers.has(form)) return;
+      const handler: EventListener = handleQuoteSubmit;
+      form.addEventListener("submit", handler);
+      quoteFormHandlers.set(form, handler);
+    });
+  };
+
+  const initializePage = (container: HTMLElement) => {
+    initializeSliders(container);
+    initializeQuoteForms(container);
+    container.querySelectorAll<HTMLVideoElement>("video[autoplay]").forEach((video) => {
+      video.muted = true;
+      video.load();
+      video.play().catch(() => {});
+    });
+    requestAnimationFrame(updateParallax);
+  };
+
+  const destroyPage = (container: HTMLElement) => {
+    container.querySelectorAll<HTMLElement>(".swiper").forEach((slider) => {
+      const instance = sliderInstances.get(slider);
+      instance?.destroy(true, true);
+      sliderInstances.delete(slider);
+    });
+
+    container.querySelectorAll<HTMLFormElement>(".quote-form").forEach((form) => {
+      const handler = quoteFormHandlers.get(form);
+      if (handler) form.removeEventListener("submit", handler);
+      quoteFormHandlers.delete(form);
+    });
+  };
+
+  const managedHeadSelectors = [
+    'link[rel="canonical"]',
+    'meta[name="description"]',
+    'meta[name="robots"]',
+    'meta[property^="og:"]',
+    'meta[name^="twitter:"]',
+    'script[type="application/ld+json"]',
+  ];
+
+  const synchronizeHead = (html: string) => {
+    const incomingDocument = new DOMParser().parseFromString(html, "text/html");
+    document.title = incomingDocument.title;
+
+    managedHeadSelectors.forEach((selector) => {
+      document.head.querySelectorAll(selector).forEach((node) => node.remove());
+      incomingDocument.head.querySelectorAll(selector).forEach((node) => {
+        document.head.append(node.cloneNode(true));
+      });
+    });
+  };
+
+  const updateNavigation = (namespace: string | undefined) => {
+    document.querySelectorAll<HTMLAnchorElement>("[data-nav-namespace]").forEach((link) => {
+      if (link.dataset.navNamespace === namespace) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+  };
+
+  const resetScroll = () => {
+    if (window.bespokeLenis) {
+      window.bespokeLenis.scrollTo(0, { immediate: true, force: true });
+    } else {
+      scrollTo(0, 0);
+    }
+  };
+
+  const restoreDestinationHash = (hash: string | undefined) => {
+    if (!hash) return false;
+    const id = decodeURIComponent(hash.replace(/^#/, ""));
+    const target = document.getElementById(id);
+    if (!target) return false;
+
+    if (window.bespokeLenis) {
+      window.bespokeLenis.scrollTo(target, { immediate: true, force: true });
+    } else {
+      target.scrollIntoView();
+    }
+    return true;
+  };
+
+  const releaseTransitionLock = () => {
+    document.body.classList.remove("is-transitioning");
+    window.bespokeLenis?.start();
+  };
+
+  const initialContainer =
+    document.querySelector<HTMLElement>('[data-barba="container"]');
+  if (initialContainer) initializePage(initialContainer);
+
+  barba.init({
+    preventRunning: true,
+    timeout: 5000,
+    transitions: [
+      {
+        name: "page-fade",
+        once({ current }) {
+          updateNavigation(current.namespace);
+          if (!current.container) return Promise.resolve();
+          return gsap.fromTo(current.container, { opacity: 0 }, {
+            opacity: 1,
+            duration: transitionDuration(),
+            ease: "power2.out",
+          });
+        },
+        before() {
+          document.body.classList.add("is-transitioning");
+          document.body.classList.remove("menu-open");
+          window.bespokeLenis?.stop();
+        },
+        beforeLeave({ current }) {
+          if (current.container) destroyPage(current.container);
+        },
+        leave({ current }) {
+          return fadeTo(current.container, 0, "power2.in");
+        },
+        afterLeave() {
+          resetScroll();
+        },
+        beforeEnter({ next }) {
+          synchronizeHead(next.html);
+          updateNavigation(next.namespace);
+          if (next.container) gsap.set(next.container, { opacity: 0 });
+        },
+        enter({ next }) {
+          return fadeTo(next.container, 1, "power2.out");
+        },
+        afterEnter({ next }) {
+          if (!next.container) return;
+          initializePage(next.container);
+          window.bespokeLenis?.resize();
+          const restoredHash = restoreDestinationHash(next.url?.hash);
+          const heading = next.container.querySelector<HTMLElement>("h1");
+          if (!restoredHash && heading) {
+            heading.tabIndex = -1;
+            heading.focus({ preventScroll: true });
+          }
+        },
+        after() {
+          releaseTransitionLock();
+        },
+      },
+    ],
+  });
+
+  barba.hooks.afterOnce(releaseTransitionLock);
 </script>
