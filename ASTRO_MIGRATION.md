@@ -90,7 +90,7 @@ Astro will use file-format output during migration so existing indexed and share
 
 ## Phase 6 — Verification
 
-- [ ] Deploy the Astro build to GitHub Pages through GitHub Actions.
+- [x] Deploy the Astro build to GitHub Pages through GitHub Actions.
   - Check: the Pages workflow succeeds and the project-site URL serves the Astro output with working assets and internal links.
 - [x] Build the production site.
   - Check: `npm run build` exits successfully with no errors.
@@ -118,3 +118,4 @@ Items are checked only after their corresponding checks pass.
 - 2026-07-30: Production build passed with 0 errors and 0 warnings. Exact `.html` routes, 14 aircraft galleries, testimonial controls, chat controls, legal content, and desktop/mobile navigation were verified in-browser.
 - 2026-07-30: Home markup was extracted into nine focused section components. The parity stylesheet moved under Astro source control, canonical design tokens replaced its legacy aliases, and the public stylesheet was removed.
 - 2026-07-30: Desktop and 390px mobile parity, bundled styles, header navigation, and Escape menu handling passed with no route console errors.
+- 2026-07-30: GitHub Pages was moved from legacy Jekyll to GitHub Actions; the Astro workflow, project-site base paths, routes, logo, favicon, and hero video passed live verification.
