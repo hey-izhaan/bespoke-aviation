@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { withBase } from "../utils/paths";
+---
+
+<BaseLayout
+  title="Page Not Found — Bespoke Aviation"
+  description="The requested page could not be found."
+  noIndex
+>
+  <main class="not-found" id="top">
+    <p class="eyebrow">Error 404</p>
+    <h1>That route has<br /><em>left the flight plan.</em></h1>
+    <p>The page may have moved or the address may be incorrect.</p>
+    <a class="button" href={withBase()}>
+      Return home <span class="airplane-icon plane-up-right" aria-hidden="true"></span>
+    </a>
+  </main>
+</BaseLayout>
+
+<style>
+  .not-found {
+    min-height: 70svh;
+    padding: clamp(80px, 12vw, 150px) var(--page-gutter);
+    background: var(--color-paper);
+  }
+
+  .not-found h1 {
+    max-width: 900px;
+  }
+
+  .not-found > p:not(.eyebrow) {
+    max-width: 520px;
+    margin: 32px 0;
+    color: #646267;
+    line-height: 1.7;
+  }
+
+  .not-found .button {
+    width: min(100%, 260px);
+    color: var(--color-white);
+    background: var(--color-accent);
+  }
+</style>

@@ -1,0 +1,137 @@
+---
+import { withBase } from "../../utils/paths";
+
+interface Props {
+  title: string;
+  description: string;
+  currentPage?: "home" | "aircraft" | "contact" | "terms";
+  pageUrl: URL;
+}
+
+const { title, description, currentPage, pageUrl } = Astro.props;
+const site = Astro.site ?? Astro.url;
+const siteUrl = new URL(withBase(), site);
+const organizationId = new URL("#organization", siteUrl).href;
+const websiteId = new URL("#website", siteUrl).href;
+const founderId = new URL("#mark-rowlands", siteUrl).href;
+const serviceId = new URL("#charter-service", siteUrl).href;
+const pageId = `${pageUrl.href}#webpage`;
+
+const pageTypes = {
+  home: "WebPage",
+  aircraft: "CollectionPage",
+  contact: "ContactPage",
+  terms: "WebPage",
+} as const;
+
+const breadcrumbNames = {
+  aircraft: "Available Aircraft",
+  contact: "Request a Quote",
+  terms: "Privacy Policy & Terms",
+} as const;
+
+const graph: Record<string, unknown>[] = [
+  {
+    "@type": "Organization",
+    "@id": organizationId,
+    name: "Bespoke Aviation Limited",
+    alternateName: "Bespoke Aviation",
+    url: siteUrl.href,
+    logo: new URL(withBase("Bespoke%20Aviation.avif"), site).href,
+    image: new URL(withBase("og-image.jpg"), site).href,
+    email: "mark@bespoke-aviation.com",
+    telephone: "+447797923575",
+    foundingDate: "2020",
+    areaServed: "Worldwide",
+    founder: { "@id": founderId },
+    sameAs: [
+      "https://www.instagram.com/bespokeaviationlimited/",
+      "https://www.linkedin.com/company/bespokeaviationlimited/",
+    ],
+  },
+  {
+    "@type": "Person",
+    "@id": founderId,
+    name: "Mark Rowlands",
+    jobTitle: "Founder",
+    image: new URL(withBase("Mark%20Rowlands%2C%20Founder%20of%20Bespoke%20Aviation.avif"), site).href,
+    email: "mark@bespoke-aviation.com",
+    telephone: "+447797923575",
+    worksFor: { "@id": organizationId },
+  },
+  {
+    "@type": "WebSite",
+    "@id": websiteId,
+    name: "Bespoke Aviation",
+    url: siteUrl.href,
+    publisher: { "@id": organizationId },
+    inLanguage: "en-GB",
+  },
+  {
+    "@type": "Service",
+    "@id": serviceId,
+    name: "Private Aircraft Charter Brokerage",
+    serviceType: "Private aircraft charter brokerage",
+    description:
+      "Independent private aircraft charter sourcing and journey management for business and leisure travel.",
+    provider: { "@id": organizationId },
+    areaServed: "Worldwide",
+    url: siteUrl.href,
+    availableChannel: {
+      "@type": "ServiceChannel",
+      serviceUrl: new URL(withBase("contact-us.html"), site).href,
+      servicePhone: {
+        "@type": "ContactPoint",
+        telephone: "+447797923575",
+        contactType: "sales",
+        email: "mark@bespoke-aviation.com",
+        availableLanguage: "English",
+      },
+    },
+  },
+  {
+    "@type": pageTypes[currentPage ?? "home"],
+    "@id": pageId,
+    name: title,
+    description,
+    url: pageUrl.href,
+    isPartOf: { "@id": websiteId },
+    about: currentPage === "terms" ? { "@id": organizationId } : { "@id": serviceId },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: new URL(withBase("og-image.jpg"), site).href,
+      width: 1200,
+      height: 630,
+    },
+    inLanguage: "en-GB",
+  },
+];
+
+if (currentPage && currentPage !== "home") {
+  graph.push({
+    "@type": "BreadcrumbList",
+    "@id": `${pageUrl.href}#breadcrumb`,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: siteUrl.href,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: breadcrumbNames[currentPage],
+        item: pageUrl.href,
+      },
+    ],
+  });
+}
+
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": graph,
+}).replace(/</g, "\\u003c");
+---
+
+<script type="application/ld+json" is:inline set:html={jsonLd}></script>

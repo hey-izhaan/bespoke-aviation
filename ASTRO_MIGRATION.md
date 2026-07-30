@@ -106,6 +106,35 @@ Astro will use file-format output during migration so existing indexed and share
   - Check: no Barba, GSAP, unpkg, or jsDelivr references remain; AVIF/WebP output exists.
 - [x] Record any intentional differences below.
 
+## Phase 7 — Technical SEO and AI discovery
+
+- [x] Make the site URL and base path environment-aware.
+  - Check: builds pass for both the GitHub Pages project URL and `https://www.bespoke-aviation.com/` without leaking URLs between environments.
+- [x] Normalize the home-page canonical URL.
+  - Check: `/index.html` emits the project or domain root as its canonical and Open Graph URL.
+- [x] Generate an XML sitemap and advertise it in `robots.txt`.
+  - Check: the sitemap contains the four canonical public routes, preserves `.html` URLs, and excludes the 404 page.
+- [x] Add explicit crawl access for search and AI user agents.
+  - Check: `robots.txt` allows the wildcard group, OAI SearchBot, ChatGPT-User, GPTBot, and Google-Extended.
+- [x] Add reusable JSON-LD structured data.
+  - Check: every indexable page emits one parseable graph containing Organization, Person, WebSite, Service, page-type, and appropriate breadcrumb entities.
+- [x] Add complete social and browser metadata.
+  - Check: canonical, Open Graph, Twitter card, image dimensions/type/alt text, language, locale, theme color, icons, and web manifest are emitted through `BaseLayout`.
+- [x] Add a custom 404 page.
+  - Check: `404.html` builds successfully, contains one H1, emits `noindex, follow`, stays out of the sitemap, and does not emit structured data.
+- [x] Add a concise `llms.txt` business summary.
+  - Check: the file builds with environment-correct primary-page and direct-contact URLs. This is an optional discovery aid, not a substitute for normal SEO.
+- [x] Add Google and Bing site-verification hooks.
+  - Check: non-empty `PUBLIC_GOOGLE_SITE_VERIFICATION` and `PUBLIC_BING_SITE_VERIFICATION` values produce the correct metadata.
+- [x] Add an optional IndexNow deployment hook.
+  - Check: the workflow publishes the configured key file and the notification script's dry run generates the four correct custom-domain URLs.
+- [x] Enforce generated SEO output in CI.
+  - Check: `npm run check:seo` passes locally and runs after every GitHub Pages build.
+- [ ] Activate the Astro build on the production custom domain.
+  - Check: after the intentional DNS/Pages cutover, set repository variables `SITE_URL=https://www.bespoke-aviation.com`, `BASE_PATH=/`, and `INDEXNOW_KEY`; verify production canonicals, root-level `robots.txt`, and the sitemap live.
+- [ ] Verify ownership and submit the sitemap in Google Search Console and Bing Webmaster Tools.
+  - Check: add the account-provided verification values, deploy, confirm ownership, and submit `https://www.bespoke-aviation.com/sitemap-index.xml`.
+
 ## Intentional differences
 
 - The legal page reads the preserved legal `<main>` from the pre-Astro HTML at build time to avoid copy drift.
@@ -122,3 +151,4 @@ Items are checked only after their corresponding checks pass.
 - 2026-07-30: Desktop and 390px mobile parity, bundled styles, header navigation, and Escape menu handling passed with no route console errors.
 - 2026-07-30: GitHub Pages was moved from legacy Jekyll to GitHub Actions; the Astro workflow, project-site base paths, routes, logo, favicon, and hero video passed live verification.
 - 2026-07-30: A branded 1200×630 Open Graph image was generated, visually reviewed, and wired into shared Open Graph and Twitter-card metadata.
+- 2026-07-30: Technical SEO and AI-discovery output passed automated checks in GitHub-preview and custom-domain modes. Sitemap, crawl policy, normalized canonicals, JSON-LD, social metadata, manifest, `llms.txt`, custom 404, verification hooks, and an optional IndexNow notifier are complete; domain cutover and webmaster-account verification remain intentionally external.

@@ -17,6 +17,12 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SITE_URL: ${{ vars.SITE_URL || 'https://hey-izhaan.github.io' }}
+      BASE_PATH: ${{ vars.BASE_PATH || '/bespoke-aviation' }}
+      PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.PUBLIC_GOOGLE_SITE_VERIFICATION }}
+      PUBLIC_BING_SITE_VERIFICATION: ${{ vars.PUBLIC_BING_SITE_VERIFICATION }}
+      INDEXNOW_KEY: ${{ vars.INDEXNOW_KEY }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
@@ -36,6 +42,14 @@ jobs:
       - name: Build Astro site
         run: npm run build
 
+      - name: Validate SEO artifacts
+        run: npm run check:seo
+
+      - name: Publish IndexNow key
+        if: ${{ vars.INDEXNOW_KEY != '' && vars.SITE_URL != '' }}
+        shell: bash
+        run: printf '%s' "$INDEXNOW_KEY" > "dist/$INDEXNOW_KEY.txt"
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:
@@ -51,3 +65,11 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+      - name: Notify IndexNow
+        if: ${{ vars.INDEXNOW_KEY != '' && vars.SITE_URL != '' }}
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+          BASE_PATH: ${{ vars.BASE_PATH || '/' }}
+          INDEXNOW_KEY: ${{ vars.INDEXNOW_KEY }}
+        run: node scripts/notify-indexnow.mjs
