@@ -409,9 +409,10 @@ h2 em {
   overflow: hidden;
   margin: 0 var(--page-gutter);
 }
-.feature-image img {
+.feature-image > img {
   height: 100%;
   object-fit: cover;
+  object-position: center;
 }
 .image-caption {
   position: absolute;
@@ -593,8 +594,13 @@ h2 em {
 
 .testimonial {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   min-height: 700px;
+  overflow: hidden;
+}
+.testimonial-photo {
+  min-width: 0;
+  overflow: hidden;
 }
 .testimonial-photo img {
   height: 100%;
@@ -606,6 +612,16 @@ h2 em {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 0;
+}
+.testimonial-swiper {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0;
+}
+.testimonial-swiper .swiper-slide {
+  height: auto;
 }
 .stars {
   width: 130px;
@@ -637,9 +653,36 @@ h2 em {
   height: 42px;
   border: 1px solid rgba(43, 43, 46, 0.35);
   background: transparent;
+  color: var(--ink);
   cursor: pointer;
   display: grid;
   place-items: center;
+  transition:
+    color 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+.testimonial-nav button .airplane-icon,
+.aircraft-slider-arrow .airplane-icon {
+  transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.testimonial-nav button:hover,
+.testimonial-nav button:focus-visible {
+  color: var(--white);
+  background: var(--navy);
+  border-color: var(--navy);
+}
+.testimonial-prev:hover .airplane-icon,
+.testimonial-prev:focus-visible .airplane-icon {
+  transform: translateX(-4px);
+}
+.testimonial-next:hover .airplane-icon,
+.testimonial-next:focus-visible .airplane-icon {
+  transform: translateX(4px);
+}
+.testimonial-nav button:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
 }
 .testimonial-nav span {
   font-size: 11px;
@@ -901,6 +944,10 @@ h2 em {
   overflow: hidden;
   background: var(--mist);
 }
+.aircraft-photo .swiper-wrapper,
+.aircraft-photo .swiper-slide {
+  height: 100%;
+}
 .aircraft-photo img {
   height: 100%;
   object-fit: cover;
@@ -908,6 +955,55 @@ h2 em {
 }
 .aircraft-card:hover .aircraft-photo img {
   transform: scale(1.035);
+}
+.aircraft-slider-arrow {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  background: rgba(247, 246, 242, 0.9);
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(-50%);
+  transition:
+    opacity 0.25s ease,
+    color 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+.aircraft-slider-prev {
+  left: 12px;
+}
+.aircraft-slider-next {
+  right: 12px;
+}
+.aircraft-photo:hover .aircraft-slider-arrow,
+.aircraft-slider-arrow:focus-visible {
+  opacity: 1;
+}
+.aircraft-slider-arrow:hover,
+.aircraft-slider-arrow:focus-visible {
+  color: var(--white);
+  background: var(--red);
+  border-color: var(--red);
+}
+.aircraft-slider-prev:hover .airplane-icon,
+.aircraft-slider-prev:focus-visible .airplane-icon {
+  transform: translateX(-4px);
+}
+.aircraft-slider-next:hover .airplane-icon,
+.aircraft-slider-next:focus-visible .airplane-icon {
+  transform: translateX(4px);
+}
+.aircraft-slider-arrow:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
 }
 .aircraft-card-body {
   padding: 24px 0 26px;
@@ -981,6 +1077,11 @@ h2 em {
   line-height: 1.75;
   margin: 0 0 34px;
   max-width: 530px;
+}
+.empty-leg-link {
+  display: flex;
+  width: fit-content;
+  margin-top: 18px;
 }
 .image-credits {
   border-top: 1px solid var(--line);
@@ -1164,6 +1265,10 @@ h2 em {
 }
 
 @media (max-width: 900px) {
+  .aircraft-slider-arrow {
+    opacity: 1;
+  }
+
   :root {
     --page-gutter: clamp(20px, 6vw, 48px);
     --grid-gap: 18px;
@@ -1655,7 +1760,11 @@ h2 em {
 
 @media (prefers-reduced-motion: reduce) {
   .header-actions,
-  .menu-toggle span {
+  .menu-toggle span,
+  .testimonial-nav button,
+  .testimonial-nav button .airplane-icon,
+  .aircraft-slider-arrow,
+  .aircraft-slider-arrow .airplane-icon {
     transition: none;
   }
 
