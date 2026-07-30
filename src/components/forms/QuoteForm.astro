@@ -1,0 +1,55 @@
+<form class="quote-form" action="#" method="post">
+  <div class="field wide">
+    <label for="departure">Departure Airport</label>
+    <input id="departure" name="departure" type="text" placeholder="e.g. London Farnborough" />
+  </div>
+  <div class="field wide">
+    <label for="destination">Destination</label>
+    <input id="destination" name="destination" type="text" placeholder="e.g. Nice Côte d’Azur" />
+  </div>
+  <div class="field">
+    <label for="date">Date</label>
+    <input id="date" name="date" type="date" />
+  </div>
+  <div class="field">
+    <label for="passengers">Passengers *</label>
+    <input id="passengers" name="passengers" type="number" min="1" placeholder="4" required />
+  </div>
+  <div class="field">
+    <label for="phone">Phone</label>
+    <input id="phone" name="phone" type="tel" placeholder="+44" />
+  </div>
+  <div class="field">
+    <label for="email">Email *</label>
+    <input id="email" name="email" type="email" placeholder="name@company.com" required />
+  </div>
+  <button class="submit-button" type="submit">
+    Get My Quote Within 30 Minutes
+    <span class="airplane-icon plane-up-right" aria-hidden="true"></span>
+  </button>
+  <p class="form-note">By submitting this form, you agree to our privacy policy.</p>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>(".quote-form").forEach((form) => {
+    if (form.dataset.initialized) return;
+    form.dataset.initialized = "true";
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+
+      const data = new FormData(form);
+      const body = [
+        `Departure: ${data.get("departure") || "Not provided"}`,
+        `Destination: ${data.get("destination") || "Not provided"}`,
+        `Date: ${data.get("date") || "Not provided"}`,
+        `Passengers: ${data.get("passengers")}`,
+        `Phone: ${data.get("phone") || "Not provided"}`,
+        `Email: ${data.get("email")}`,
+      ].join("\n");
+
+      location.href = `mailto:mark@bespoke-aviation.com?subject=${encodeURIComponent("Private charter enquiry")}&body=${encodeURIComponent(body)}`;
+    });
+  });
+</script>

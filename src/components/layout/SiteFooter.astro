@@ -1,0 +1,61 @@
+---
+interface Props {
+  showCredits?: boolean;
+}
+
+const { showCredits = false } = Astro.props;
+---
+
+<footer class="footer" id="contact">
+  <div class="footer-top">
+    <a class="brand footer-brand" href="/">
+      <img src="/Bespoke%20Aviation.png" alt="Bespoke Aviation" />
+    </a>
+    <h2>Private Aviation.<br /><em>Personally Managed.</em></h2>
+  </div>
+
+  <div class="footer-grid">
+    <div>
+      <span class="footer-label">Direct enquiries</span>
+      <a href="mailto:mark@bespoke-aviation.com">mark@bespoke-aviation.com</a>
+      <a href="tel:+447797923575">+44 (0)7797 923 575</a>
+    </div>
+    <div>
+      <span class="footer-label">Explore</span>
+      <a href="/">Home</a>
+      <a href="/available-aircraft.html">Available Aircraft</a>
+      <a href="/contact-us.html">Request a Quote</a>
+    </div>
+    <div>
+      <span class="footer-label">Follow</span>
+      <a
+        href="https://www.instagram.com/bespokeaviationlimited?igsh=MTZjdzNoNDJ1cnJmbg%3D%3D&amp;utm_source=qr"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Instagram</a>
+      <a
+        href="https://www.linkedin.com/company/104761341"
+        target="_blank"
+        rel="noopener noreferrer"
+      >LinkedIn</a>
+    </div>
+    <div class="footer-accreditation">
+      <img src="/aca-logo.png" alt="The Air Charter Association" />
+      <span>Accredited Member</span>
+    </div>
+  </div>
+
+  {showCredits && (
+    <div class="image-credits">
+      Beech King Air image: Ross Fearn,
+      <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+      Embraer Legacy image: joelfotos, CC0.
+    </div>
+  )}
+
+  <div class="footer-bottom">
+    <span>© 2026 Bespoke Aviation Ltd.</span>
+    <div><a href="/terms.html#terms">Terms</a></div>
+    <a href="#top">Back to top <span class="airplane-icon" aria-hidden="true"></span></a>
+  </div>
+</footer>

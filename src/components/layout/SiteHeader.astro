@@ -1,0 +1,99 @@
+---
+interface Props {
+  currentPage?: "home" | "aircraft" | "contact" | "terms";
+}
+
+const { currentPage } = Astro.props;
+---
+
+<header class="site-header">
+  <a class="brand" href="/" aria-label="Bespoke Aviation home">
+    <img src="/Bespoke%20Aviation.png" alt="Bespoke Aviation" />
+  </a>
+
+  <button
+    class="menu-toggle"
+    type="button"
+    aria-expanded="false"
+    aria-controls="site-menu"
+    aria-label="Open menu"
+  ><span></span><span></span></button>
+
+  <div class="header-actions" id="site-menu">
+    <nav class="main-nav" aria-label="Primary navigation">
+      <a href="/" aria-current={currentPage === "home" ? "page" : undefined}>Home</a>
+      <a
+        href="/available-aircraft.html"
+        aria-current={currentPage === "aircraft" ? "page" : undefined}
+      >Available Aircraft</a>
+    </nav>
+    <a
+      class="header-cta"
+      href="/contact-us.html"
+      aria-current={currentPage === "contact" ? "page" : undefined}
+    >
+      Request a quote <span class="airplane-icon plane-up-right" aria-hidden="true"></span>
+    </a>
+  </div>
+</header>
+
+<script>
+  const initializeMenu = () => {
+    const menuToggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
+    const siteMenu = document.querySelector<HTMLElement>("#site-menu");
+    if (!menuToggle || !siteMenu || menuToggle.dataset.initialized) return;
+
+    menuToggle.dataset.initialized = "true";
+
+    const setMenuOpen = (open: boolean, restoreFocus = false) => {
+      document.body.classList.toggle("menu-open", open);
+      menuToggle.setAttribute("aria-expanded", String(open));
+      menuToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+
+      if (open) {
+        window.bespokeLenis?.stop();
+        requestAnimationFrame(() => siteMenu.querySelector<HTMLAnchorElement>("a")?.focus());
+      } else {
+        window.bespokeLenis?.start();
+        if (restoreFocus) menuToggle.focus();
+      }
+    };
+
+    menuToggle.addEventListener("click", () => {
+      setMenuOpen(!document.body.classList.contains("menu-open"));
+    });
+
+    siteMenu.addEventListener("click", ({ target }) => {
+      if (target instanceof Element && target.closest("a")) setMenuOpen(false);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (!document.body.classList.contains("menu-open")) return;
+
+      if (event.key === "Escape") {
+        setMenuOpen(false, true);
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+      const focusable = [menuToggle, ...siteMenu.querySelectorAll<HTMLAnchorElement>("a")];
+      const first = focusable[0];
+      const last = focusable.at(-1);
+      if (!first || !last) return;
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    matchMedia("(min-width: 901px)").addEventListener("change", ({ matches }) => {
+      if (matches) setMenuOpen(false);
+    });
+  };
+
+  initializeMenu();
+</script>

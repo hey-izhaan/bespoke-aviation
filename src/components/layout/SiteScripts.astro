@@ -1,0 +1,35 @@
+<script>
+  import Lenis from "lenis";
+
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+
+  const updateParallax = () => {
+    const footer = document.querySelector<HTMLElement>(".footer");
+    if (footer) {
+      const rect = footer.getBoundingClientRect();
+      const progress = Math.max(0, Math.min(1, (innerHeight - rect.top) / rect.height));
+      footer.style.setProperty("--footer-parallax", `${(progress - 1) * 96}px`);
+    }
+
+    const hero = document.querySelector<HTMLElement>(
+      ".hero, .aircraft-hero, .contact-personal, .legal-hero",
+    );
+    if (hero) {
+      const rect = hero.getBoundingClientRect();
+      const headerHeight =
+        document.querySelector<HTMLElement>(".site-header")?.offsetHeight ?? 0;
+      const progress = Math.max(
+        0,
+        Math.min(1, (headerHeight - rect.top) / Math.min(rect.height, innerHeight)),
+      );
+      hero.style.setProperty("--hero-parallax", `${progress * 84}px`);
+    }
+  };
+
+  if (!reducedMotion.matches) {
+    window.bespokeLenis = new Lenis({ autoRaf: true, anchors: true });
+    window.bespokeLenis.on("scroll", updateParallax);
+    addEventListener("resize", updateParallax);
+    updateParallax();
+  }
+</script>

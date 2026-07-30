@@ -1,0 +1,72 @@
+---
+import "swiper/css";
+import "swiper/css/effect-fade";
+import { Picture } from "astro:assets";
+import type { Aircraft } from "../../data/aircraft";
+
+interface Props {
+  aircraft: Aircraft;
+}
+
+const { aircraft } = Astro.props;
+---
+
+<article class="aircraft-card">
+  <div class="aircraft-photo swiper aircraft-swiper" aria-label={`${aircraft.name} images`}>
+    <div class="swiper-wrapper">
+      {aircraft.images.map(({ src, alt }, index) => (
+        <div class="swiper-slide">
+          <Picture
+            src={src}
+            formats={["avif", "webp"]}
+            widths={[480, 800]}
+            sizes="(max-width: 768px) 100vw, 33vw"
+            quality={72}
+            alt={alt}
+            loading={index === 0 ? "eager" : "lazy"}
+          />
+        </div>
+      ))}
+    </div>
+    <button class="aircraft-slider-arrow aircraft-slider-prev" type="button" aria-label={`Previous ${aircraft.name} image`}>
+      <span class="airplane-icon plane-left" aria-hidden="true"></span>
+    </button>
+    <button class="aircraft-slider-arrow aircraft-slider-next" type="button" aria-label={`Next ${aircraft.name} image`}>
+      <span class="airplane-icon plane-right" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="aircraft-card-body">
+    <span class="aircraft-type">{aircraft.type}</span>
+    <h3>{aircraft.name}</h3>
+    <p>Up to {aircraft.passengers} passengers</p>
+    <a href="/contact-us.html" aria-label={`Request a quote for the ${aircraft.name}`}>
+      <span class="airplane-icon plane-up-right" aria-hidden="true"></span>
+    </a>
+  </div>
+</article>
+
+<script>
+  import Swiper from "swiper";
+  import { EffectFade, Keyboard, Navigation } from "swiper/modules";
+
+  document.querySelectorAll<HTMLElement>(".aircraft-swiper").forEach((slider) => {
+    if (slider.dataset.initialized) return;
+    slider.dataset.initialized = "true";
+
+    new Swiper(slider, {
+      modules: [EffectFade, Keyboard, Navigation],
+      slidesPerView: 1,
+      speed: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 550,
+      effect: "fade",
+      fadeEffect: { crossFade: true },
+      grabCursor: true,
+      rewind: true,
+      watchOverflow: true,
+      keyboard: { enabled: true, onlyInViewport: true },
+      navigation: {
+        prevEl: slider.querySelector<HTMLElement>(".aircraft-slider-prev"),
+        nextEl: slider.querySelector<HTMLElement>(".aircraft-slider-next"),
+      },
+    });
+  });
+</script>

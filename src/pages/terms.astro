@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import termsDocument from "../../terms.html?raw";
+
+const mainContent = termsDocument.match(/<main id="top">([\s\S]*?)<\/main>/)?.[1];
+
+if (!mainContent) {
+  throw new Error("Unable to extract the legal content from terms.html.");
+}
+---
+
+<BaseLayout
+  title="Privacy Policy & Terms — Bespoke Aviation"
+  description="Privacy policy and charter terms for Bespoke Aviation Limited."
+  currentPage="terms"
+>
+  <main id="top" set:html={mainContent}></main>
+</BaseLayout>

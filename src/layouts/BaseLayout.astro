@@ -1,0 +1,53 @@
+---
+import "lenis/dist/lenis.css";
+import "../styles/tokens.css";
+import "../styles/global.css";
+import "../styles/utilities.css";
+import ChatWidget from "../components/layout/ChatWidget.astro";
+import SiteFooter from "../components/layout/SiteFooter.astro";
+import SiteHeader from "../components/layout/SiteHeader.astro";
+import SiteScripts from "../components/layout/SiteScripts.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  currentPage?: "home" | "aircraft" | "contact" | "terms";
+  showCredits?: boolean;
+}
+
+const { title, description, currentPage, showCredits = false } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/png" sizes="224x224" href="/Favicon.png" />
+    <link rel="apple-touch-icon" href="/Favicon.png" />
+    <link
+      rel="preload"
+      href="/fonts/dm-sans-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/manrope-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <SiteHeader currentPage={currentPage} />
+    <slot />
+    <SiteFooter showCredits={showCredits} />
+    <ChatWidget />
+    <SiteScripts />
+  </body>
+</html>

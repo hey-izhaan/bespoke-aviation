@@ -1,0 +1,47 @@
+---
+import AircraftCard from "../components/aircraft/AircraftCard.astro";
+import SectionLabel from "../components/ui/SectionLabel.astro";
+import { aircraft } from "../data/aircraft";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Available Aircraft — Bespoke Aviation"
+  description="Explore private aircraft available worldwide through Bespoke Aviation."
+  currentPage="aircraft"
+  showCredits
+>
+  <main id="top">
+    <section class="aircraft-hero">
+      <div class="aircraft-hero-copy">
+        <p class="eyebrow light">Worldwide aircraft access</p>
+        <h1>The right aircraft.<br /><em>For every journey.</em></h1>
+        <p>From efficient short-haul aircraft to long-range private jets, every option is independently sourced around your route, schedule and passengers.</p>
+      </div>
+      <div class="aircraft-hero-stat">
+        <strong>3,200+</strong>
+        <span>Aircraft available<br />through our global network</span>
+      </div>
+    </section>
+
+    <section class="fleet section-pad" aria-labelledby="fleet-heading">
+      <SectionLabel number="01">Available aircraft</SectionLabel>
+      <div class="fleet-heading">
+        <h2 id="fleet-heading">Explore the aircraft<br /><em>before you enquire.</em></h2>
+        <p>These are a selection of the aircraft we can arrange. Mark will compare the best available options for your exact journey.</p>
+      </div>
+      <div class="aircraft-grid">
+        {aircraft.map((item) => <AircraftCard aircraft={item} />)}
+      </div>
+    </section>
+
+    <section class="aircraft-cta">
+      <div><p class="eyebrow light">Not sure which aircraft?</p><h2>Tell Mark where you<br /><em>need to be.</em></h2></div>
+      <div>
+        <p>Your route, passenger needs and priorities are all that is needed. Mark will personally source and compare the most suitable aircraft. If your plans are flexible, follow us on Instagram for empty-leg opportunities as they become available.</p>
+        <a class="button button-light" href="/contact-us.html">Plan your journey <span class="airplane-icon plane-up-right" aria-hidden="true"></span></a>
+        <a class="text-link light empty-leg-link" href="https://www.instagram.com/bespokeaviationlimited?igsh=MTZjdzNoNDJ1cnJmbg%3D%3D&amp;utm_source=qr" target="_blank" rel="noopener noreferrer">Empty legs on Instagram <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

@@ -1,0 +1,13 @@
+---
+interface Props {
+  number: string;
+  light?: boolean;
+}
+
+const { number, light = false } = Astro.props;
+---
+
+<div class:list={["section-label", { light }]}>
+  <span>{number}</span>
+  <slot />
+</div>
