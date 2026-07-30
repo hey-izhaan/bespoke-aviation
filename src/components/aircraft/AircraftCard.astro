@@ -19,7 +19,8 @@ const { aircraft } = Astro.props;
         <div class="swiper-slide">
           <Picture
             src={src}
-            formats={["avif", "webp"]}
+            formats={["avif"]}
+            fallbackFormat="avif"
             widths={[480, 800]}
             sizes="(max-width: 768px) 100vw, 33vw"
             quality={72}

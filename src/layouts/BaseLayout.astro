@@ -18,6 +18,9 @@ interface Props {
 }
 
 const { title, description, currentPage, showCredits = false } = Astro.props;
+const site = Astro.site ?? Astro.url;
+const pageUrl = new URL(Astro.url.pathname, site);
+const ogImageUrl = new URL(withBase("og-image.jpg"), site);
 ---
 
 <!doctype html>
@@ -26,6 +29,23 @@ const { title, description, currentPage, showCredits = false } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={pageUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Bespoke Aviation" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Bespoke Aviation — Private Aviation. Personally Managed."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
     <link rel="icon" type="image/png" sizes="224x224" href={withBase("Favicon.png")} />
     <link rel="apple-touch-icon" href={withBase("Favicon.png")} />
     <link

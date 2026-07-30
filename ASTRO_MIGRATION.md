@@ -77,6 +77,8 @@ Astro will use file-format output during migration so existing indexed and share
 
 ## Phase 5 — Images
 
+- [x] Create and wire a branded 1200×630 Open Graph image.
+  - Check: the production layout emits absolute Open Graph and Twitter image metadata; the image contains only the logo, heading, and aircraft background.
 - [ ] Move processable photography from `public` to `src/assets`.
   - Check: Astro imports local photography as image metadata.
 - [x] Generate responsive AVIF and WebP output for photographic content.
@@ -119,3 +121,4 @@ Items are checked only after their corresponding checks pass.
 - 2026-07-30: Home markup was extracted into nine focused section components. The parity stylesheet moved under Astro source control, canonical design tokens replaced its legacy aliases, and the public stylesheet was removed.
 - 2026-07-30: Desktop and 390px mobile parity, bundled styles, header navigation, and Escape menu handling passed with no route console errors.
 - 2026-07-30: GitHub Pages was moved from legacy Jekyll to GitHub Actions; the Astro workflow, project-site base paths, routes, logo, favicon, and hero video passed live verification.
+- 2026-07-30: A branded 1200×630 Open Graph image was generated, visually reviewed, and wired into shared Open Graph and Twitter-card metadata.

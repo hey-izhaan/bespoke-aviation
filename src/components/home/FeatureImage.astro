@@ -1,12 +1,13 @@
 ---
 import { Picture } from "astro:assets";
-import featurePhoto from "../../assets/images/private-jet-feature.jpg";
+import featurePhoto from "../../assets/images/private-jet-feature.avif";
 ---
 
 <section class="feature-image" aria-label="Private jet exterior">
   <Picture
     src={featurePhoto}
-    formats={["avif", "webp"]}
+    formats={["avif"]}
+      fallbackFormat="avif"
     layout="full-width"
     alt="Private jet approaching an airport for landing"
   />

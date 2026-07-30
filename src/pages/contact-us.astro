@@ -2,7 +2,7 @@
 import { Picture } from "astro:assets";
 import QuoteForm from "../components/forms/QuoteForm.astro";
 import SectionLabel from "../components/ui/SectionLabel.astro";
-import markPhoto from "../assets/images/mark-rowlands-baseline.jpg";
+import markPhoto from "../assets/images/mark-rowlands-baseline.avif";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { withBase } from "../utils/paths";
 ---
@@ -17,7 +17,8 @@ import { withBase } from "../utils/paths";
       <div class="contact-portrait">
         <Picture
           src={markPhoto}
-          formats={["avif", "webp"]}
+          formats={["avif"]}
+          fallbackFormat="avif"
           layout="full-width"
           alt="Mark Rowlands, Founder of Bespoke Aviation"
         />
@@ -31,7 +32,7 @@ import { withBase } from "../utils/paths";
           <a href="tel:+447797923575"><span>Telephone</span>+44 (0)7797 923 575</a>
         </div>
         <div class="contact-accreditation">
-          <img src={withBase("aca-logo.png")} alt="The Air Charter Association" />
+          <img src={withBase("aca-logo.avif")} alt="The Air Charter Association" />
           <p>Accredited by the leading worldwide trade association for aircraft charter professionals.</p>
         </div>
       </div>

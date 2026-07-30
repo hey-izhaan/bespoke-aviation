@@ -1,6 +1,6 @@
 ---
 import { Picture } from "astro:assets";
-import markPhoto from "../../assets/images/mark-rowlands-baseline.jpg";
+import markPhoto from "../../assets/images/mark-rowlands-baseline.avif";
 import SectionLabel from "../ui/SectionLabel.astro";
 ---
 
@@ -8,7 +8,8 @@ import SectionLabel from "../ui/SectionLabel.astro";
   <div class="mark-photo">
     <Picture
       src={markPhoto}
-      formats={["avif", "webp"]}
+      formats={["avif"]}
+      fallbackFormat="avif"
       layout="full-width"
       alt="Mark Rowlands, Founder of Bespoke Aviation"
     />

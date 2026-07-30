@@ -1,11 +1,11 @@
 ---
 import { getImage } from "astro:assets";
-import heroPoster from "../../assets/images/hero-poster.png";
+import heroPoster from "../../assets/images/hero-poster.avif";
 import { withBase } from "../../utils/paths";
 
 const optimizedPoster = await getImage({
   src: heroPoster,
-  format: "webp",
+  format: "avif",
   width: 1920,
   quality: 78,
 });

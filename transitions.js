@@ -73,9 +73,9 @@ matchMedia("(min-width: 901px)").addEventListener("change", ({ matches }) => {
 });
 
 document.body.insertAdjacentHTML("beforeend", `<aside class="chat-widget" aria-label="Contact Bespoke Aviation">
-  <div class="chat-teaser"><button class="chat-teaser-open" type="button" aria-expanded="false" aria-controls="chat-panel"><img src="Public/Hero%20Thumbnail.png" alt=""><span>Hi there, have a question?<strong>Talk to us.</strong></span></button><button class="chat-teaser-close" type="button" aria-label="Dismiss message">&times;</button></div>
+  <div class="chat-teaser"><button class="chat-teaser-open" type="button" aria-expanded="false" aria-controls="chat-panel"><img src="Public/Hero%20Thumbnail.avif" alt=""><span>Hi there, have a question?<strong>Talk to us.</strong></span></button><button class="chat-teaser-close" type="button" aria-label="Dismiss message">&times;</button></div>
   <section class="chat-panel" id="chat-panel" aria-hidden="true" inert>
-    <header class="chat-panel-header"><img src="Public/Hero%20Thumbnail.png" alt=""><div><strong>Have a question?</strong><span>We’re here to help.</span></div><button class="chat-panel-close" type="button" aria-label="Close contact form">&times;</button></header>
+    <header class="chat-panel-header"><img src="Public/Hero%20Thumbnail.avif" alt=""><div><strong>Have a question?</strong><span>We’re here to help.</span></div><button class="chat-panel-close" type="button" aria-label="Close contact form">&times;</button></header>
     <div class="chat-panel-body"><p class="chat-intro">Tell us what you need and Mark will get back to you personally.</p><form class="chat-form">
       <label><span>Name</span><input name="name" autocomplete="name" placeholder="Name *" required></label>
       <label><span>Phone</span><input name="phone" type="tel" autocomplete="tel" placeholder="Phone"></label>
