@@ -23,15 +23,21 @@ const { currentPage } = Astro.props;
 
   <div class="header-actions" id="site-menu">
     <nav class="main-nav" aria-label="Primary navigation">
-      <a href={withBase()} aria-current={currentPage === "home" ? "page" : undefined}>Home</a>
+      <a
+        href={withBase()}
+        data-nav-namespace="home"
+        aria-current={currentPage === "home" ? "page" : undefined}
+      >Home</a>
       <a
         href={withBase("available-aircraft")}
+        data-nav-namespace="aircraft"
         aria-current={currentPage === "aircraft" ? "page" : undefined}
       >Available Aircraft</a>
     </nav>
     <a
       class="header-cta"
       href={withBase("contact-us")}
+      data-nav-namespace="contact"
       aria-current={currentPage === "contact" ? "page" : undefined}
     >
       Request a quote <span class="airplane-icon plane-up-right" aria-hidden="true"></span>

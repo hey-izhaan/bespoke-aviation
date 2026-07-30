@@ -1,8 +1,8 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 
-const site = process.env.SITE_URL ?? "https://hey-izhaan.github.io";
-const base = process.env.BASE_PATH ?? "/bespoke-aviation";
+const site = process.env.SITE_URL ?? "https://www.bespoke-aviation.com";
+const base = process.env.BASE_PATH ?? "/";
 
 export default defineConfig({
   site,

@@ -29,27 +29,3 @@
   </button>
   <p class="form-note">By submitting this form, you agree to our privacy policy.</p>
 </form>
-
-<script>
-  document.querySelectorAll<HTMLFormElement>(".quote-form").forEach((form) => {
-    if (form.dataset.initialized) return;
-    form.dataset.initialized = "true";
-
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      if (!form.reportValidity()) return;
-
-      const data = new FormData(form);
-      const body = [
-        `Departure: ${data.get("departure") || "Not provided"}`,
-        `Destination: ${data.get("destination") || "Not provided"}`,
-        `Date: ${data.get("date") || "Not provided"}`,
-        `Passengers: ${data.get("passengers")}`,
-        `Phone: ${data.get("phone") || "Not provided"}`,
-        `Email: ${data.get("email")}`,
-      ].join("\n");
-
-      location.href = `mailto:mark@bespoke-aviation.com?subject=${encodeURIComponent("Private charter enquiry")}&body=${encodeURIComponent(body)}`;
-    });
-  });
-</script>

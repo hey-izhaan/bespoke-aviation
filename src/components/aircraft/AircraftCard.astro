@@ -1,6 +1,4 @@
 ---
-import "swiper/css";
-import "swiper/css/effect-fade";
 import { Picture } from "astro:assets";
 import type { Aircraft } from "../../data/aircraft";
 import { withBase } from "../../utils/paths";
@@ -46,29 +44,3 @@ const { aircraft } = Astro.props;
     </a>
   </div>
 </article>
-
-<script>
-  import Swiper from "swiper";
-  import { EffectFade, Keyboard, Navigation } from "swiper/modules";
-
-  document.querySelectorAll<HTMLElement>(".aircraft-swiper").forEach((slider) => {
-    if (slider.dataset.initialized) return;
-    slider.dataset.initialized = "true";
-
-    new Swiper(slider, {
-      modules: [EffectFade, Keyboard, Navigation],
-      slidesPerView: 1,
-      speed: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 550,
-      effect: "fade",
-      fadeEffect: { crossFade: true },
-      grabCursor: true,
-      rewind: true,
-      watchOverflow: true,
-      keyboard: { enabled: true, onlyInViewport: true },
-      navigation: {
-        prevEl: slider.querySelector<HTMLElement>(".aircraft-slider-prev"),
-        nextEl: slider.querySelector<HTMLElement>(".aircraft-slider-next"),
-      },
-    });
-  });
-</script>

@@ -18,8 +18,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      SITE_URL: ${{ vars.SITE_URL || 'https://hey-izhaan.github.io' }}
-      BASE_PATH: ${{ vars.BASE_PATH || '/bespoke-aviation' }}
+      SITE_URL: ${{ vars.SITE_URL || 'https://www.bespoke-aviation.com' }}
+      BASE_PATH: ${{ vars.BASE_PATH || '/' }}
       PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.PUBLIC_GOOGLE_SITE_VERIFICATION }}
       PUBLIC_BING_SITE_VERIFICATION: ${{ vars.PUBLIC_BING_SITE_VERIFICATION }}
       INDEXNOW_KEY: ${{ vars.INDEXNOW_KEY }}

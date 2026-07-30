@@ -1,6 +1,4 @@
 ---
-import "swiper/css";
-import "swiper/css/effect-fade";
 import { testimonials } from "../../data/testimonials";
 import { withBase } from "../../utils/paths";
 ---
@@ -37,43 +35,3 @@ import { withBase } from "../../utils/paths";
     </div>
   </div>
 </section>
-
-<script>
-  import Swiper from "swiper";
-  import { EffectFade, Keyboard, Navigation } from "swiper/modules";
-
-  const slider = document.querySelector<HTMLElement>(".testimonial-swiper");
-  if (slider) {
-    const copy = slider.closest<HTMLElement>(".testimonial-copy");
-    const count = copy?.querySelector<HTMLElement>(".testimonial-count");
-    const total = slider.querySelectorAll(".swiper-slide").length;
-
-    new Swiper(slider, {
-      modules: [EffectFade, Keyboard, Navigation],
-      slidesPerView: 1,
-      speed: matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 550,
-      effect: "fade",
-      fadeEffect: { crossFade: true },
-      autoHeight: true,
-      loop: true,
-      grabCursor: true,
-      keyboard: { enabled: true, onlyInViewport: true },
-      navigation: {
-        prevEl: copy?.querySelector<HTMLElement>(".testimonial-prev"),
-        nextEl: copy?.querySelector<HTMLElement>(".testimonial-next"),
-      },
-      on: {
-        init(swiper) {
-          if (count) {
-            count.textContent = `${String(swiper.realIndex + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
-          }
-        },
-        slideChange(swiper) {
-          if (count) {
-            count.textContent = `${String(swiper.realIndex + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
-          }
-        },
-      },
-    });
-  }
-</script>
