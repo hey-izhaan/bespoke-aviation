@@ -1,0 +1,39 @@
+---
+import SectionLabel from "../ui/SectionLabel.astro";
+
+const services = [
+  {
+    title: "Private Aircraft",
+    copy: "Access to thousands of aircraft worldwide, selected around your route, passenger needs, schedule and budget.",
+  },
+  {
+    title: "Experienced Support",
+    copy: "More than three decades of aviation experience applied to every detail, including suitability, safety and operations.",
+  },
+  {
+    title: "Flexible Service",
+    copy: "We understand that plans change. Your charter is managed with agility, discretion and direct personal communication.",
+  },
+];
+---
+
+<section class="services section-pad" id="services">
+  <SectionLabel number="02">Why fly with us</SectionLabel>
+  <div class="services-heading">
+    <h2>Your schedule.<br /><em>Your aircraft.</em></h2>
+    <p>
+      From a straightforward return flight to a demanding multi-stop itinerary, every
+      journey is carefully planned around your priorities.
+    </p>
+  </div>
+  <div class="service-list">
+    {services.map(({ title, copy }, index) => (
+      <article>
+        <span class="service-number">{String(index + 1).padStart(2, "0")}</span>
+        <h3>{title}</h3>
+        <p>{copy}</p>
+        <span class="airplane-icon service-icon plane-up-right" aria-hidden="true"></span>
+      </article>
+    ))}
+  </div>
+</section>

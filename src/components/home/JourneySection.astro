@@ -1,0 +1,35 @@
+---
+import SectionLabel from "../ui/SectionLabel.astro";
+
+const steps = [
+  {
+    title: "Tell us your plans",
+    copy: "Share your route, dates, passengers and any special requirements.",
+  },
+  {
+    title: "Receive suitable options",
+    copy: "Mark sources and compares the most appropriate aircraft for your journey.",
+  },
+  {
+    title: "Fly with confidence",
+    copy: "Your charter is monitored and managed until everyone arrives safely.",
+  },
+];
+---
+
+<section class="journey section-pad" id="aircraft">
+  <SectionLabel number="04">Your journey</SectionLabel>
+  <div class="journey-header">
+    <h2>Simple from the first call<br /><em>to the final arrival.</em></h2>
+    <p>One experienced point of contact. Clear recommendations. No unnecessary layers.</p>
+  </div>
+  <div class="steps">
+    {steps.map(({ title, copy }, index) => (
+      <article>
+        <span>{String(index + 1).padStart(2, "0")}</span>
+        <h3>{title}</h3>
+        <p>{copy}</p>
+      </article>
+    ))}
+  </div>
+</section>

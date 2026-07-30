@@ -1,37 +1,3 @@
-@font-face {
-  font-family: "DM Sans";
-  src: url("/fonts/dm-sans-latin.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 400 600;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Manrope";
-  src: url("/fonts/manrope-latin.woff2") format("woff2");
-  font-style: normal;
-  font-weight: 400 600;
-  font-display: swap;
-}
-
-:root {
-  --navy: #29292c;
-  --navy-deep: #171719;
-  --blue: #424247;
-  --mist: #eeedeb;
-  --paper: #f7f6f2;
-  --white: #fff;
-  --ink: #2b2b2e;
-  --red: #d40818;
-  --line: rgba(43, 43, 46, 0.17);
-  --page-gutter: clamp(32px, 7.5vw, 144px);
-  --grid-gap: 24px;
-  --heading-display: clamp(52px, 6vw, 96px);
-  --heading-section: clamp(38px, 4vw, 60px);
-  --heading-compact: clamp(38px, 3.125vw, 45px);
-  --heading-item: 24px;
-}
-
 html {
   scrollbar-gutter: stable;
 }
@@ -42,9 +8,9 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: "DM Sans", sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
 }
 a {
   color: inherit;
@@ -62,21 +28,21 @@ h1,
 h2,
 h3 {
   margin: 0;
-  font-family: "Manrope", sans-serif;
+  font-family: var(--font-heading);
   letter-spacing: -0.055em;
 }
 h1 {
-  font-size: var(--heading-display);
+  font-size: var(--text-display);
   font-weight: 400;
   line-height: 0.98;
 }
 h2 {
-  font-size: var(--heading-section);
+  font-size: var(--text-section);
   font-weight: 400;
   line-height: 1.08;
 }
 h3 {
-  font-size: var(--heading-item);
+  font-size: var(--text-heading-sm);
   font-weight: 500;
   line-height: 1.2;
 }
@@ -87,7 +53,7 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--paper);
+  background: var(--color-paper);
   border-bottom: 1px solid rgba(43, 43, 46, 0.12);
   position: sticky;
   top: 0;
@@ -127,7 +93,7 @@ h3 {
   right: 100%;
   bottom: 27px;
   height: 1px;
-  background: var(--red);
+  background: var(--color-accent);
   transition: right 0.25s;
 }
 .main-nav a:hover:after,
@@ -135,17 +101,17 @@ h3 {
   right: 0;
 }
 .main-nav a[aria-current="page"] {
-  color: var(--red);
+  color: var(--color-accent);
 }
 .header-cta {
-  border: 1px solid var(--red);
+  border: 1px solid var(--color-accent);
   padding: 13px 18px;
   font-size: 13px;
   display: flex;
   gap: 28px;
   align-items: center;
-  background: var(--red);
-  color: var(--white);
+  background: var(--color-accent);
+  color: var(--color-white);
   transition:
     background 0.2s,
     border-color 0.2s;
@@ -156,7 +122,7 @@ h3 {
 }
 .site-header a:focus-visible,
 .site-header button:focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--color-accent);
   outline-offset: 4px;
 }
 .airplane-icon {
@@ -194,7 +160,7 @@ h3 {
   max-height: 930px;
   position: relative;
   overflow: hidden;
-  color: var(--white);
+  color: var(--color-white);
 }
 .hero-video {
   width: 100%;
@@ -269,8 +235,8 @@ h2 em {
   font-size: 13px;
 }
 .button-light {
-  background: var(--white);
-  color: var(--navy);
+  background: var(--color-white);
+  color: var(--color-navy);
 }
 .text-link {
   font-size: 13px;
@@ -290,8 +256,8 @@ h2 em {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1.2fr;
   padding: 0 var(--page-gutter);
-  background: var(--navy-deep);
-  color: var(--white);
+  background: var(--color-navy-deep);
+  color: var(--color-white);
 }
 .hero-trust > div {
   display: flex;
@@ -313,10 +279,10 @@ h2 em {
   border-right: 0;
 }
 .hero-trust strong {
-  font: 500 28px/1 "Manrope";
+  font: 500 var(--text-stat-sm)/1 var(--font-heading);
 }
 .hero-trust span {
-  font-size: 11px;
+  font-size: var(--text-micro);
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.68);
 }
@@ -358,14 +324,14 @@ h2 em {
   color: #706e72;
 }
 .section-label span {
-  color: var(--red);
+  color: var(--color-accent);
 }
 .section-label.light,
 .section-label.light span {
   color: rgba(255, 255, 255, 0.62);
 }
 .intro {
-  background: var(--paper);
+  background: var(--color-paper);
 }
 .intro-grid {
   display: grid;
@@ -384,7 +350,7 @@ h2 em {
   line-height: 1.85;
 }
 .intro-copy .lead {
-  color: var(--ink);
+  color: var(--color-ink);
   font-size: 20px;
   line-height: 1.55;
   margin-top: 0;
@@ -421,7 +387,7 @@ h2 em {
 }
 
 .services {
-  background: var(--mist);
+  background: var(--color-mist);
 }
 .services-heading {
   display: grid;
@@ -439,14 +405,14 @@ h2 em {
   line-height: 1.75;
 }
 .service-list {
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--color-line);
 }
 .service-list article {
   display: grid;
   grid-template-columns: 80px 1fr 1.5fr 50px;
   align-items: center;
   min-height: 145px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--color-line);
   transition:
     padding 0.3s,
     background 0.3s;
@@ -476,7 +442,7 @@ h2 em {
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 860px;
-  background: var(--navy);
+  background: var(--color-navy);
   color: white;
 }
 .mark-photo {
@@ -493,8 +459,8 @@ h2 em {
   position: absolute;
   left: 28px;
   bottom: 28px;
-  background: var(--paper);
-  color: var(--navy);
+  background: var(--color-paper);
+  color: var(--color-navy);
   padding: 17px 20px;
   min-width: 230px;
   display: flex;
@@ -535,7 +501,7 @@ h2 em {
 }
 
 .journey {
-  background: var(--paper);
+  background: var(--color-paper);
 }
 .journey-header {
   margin: 60px 0 75px;
@@ -554,11 +520,11 @@ h2 em {
 .steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--color-line);
 }
 .steps article {
   padding: 38px 48px 20px 0;
-  border-right: 1px solid var(--line);
+  border-right: 1px solid var(--color-line);
   min-height: 275px;
 }
 .steps article:not(:first-child) {
@@ -622,7 +588,7 @@ h2 em {
   font:
     400 38px/1.35 Georgia,
     serif;
-  color: var(--navy);
+  color: var(--color-navy);
   margin: 0;
 }
 .client-name {
@@ -643,7 +609,7 @@ h2 em {
   height: 42px;
   border: 1px solid rgba(43, 43, 46, 0.35);
   background: transparent;
-  color: var(--ink);
+  color: var(--color-ink);
   cursor: pointer;
   display: grid;
   place-items: center;
@@ -658,9 +624,9 @@ h2 em {
 }
 .testimonial-nav button:hover,
 .testimonial-nav button:focus-visible {
-  color: var(--white);
-  background: var(--navy);
-  border-color: var(--navy);
+  color: var(--color-white);
+  background: var(--color-navy);
+  border-color: var(--color-navy);
 }
 .testimonial-prev:hover .airplane-icon,
 .testimonial-prev:focus-visible .airplane-icon {
@@ -671,7 +637,7 @@ h2 em {
   transform: translateX(4px);
 }
 .testimonial-nav button:focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--color-accent);
   outline-offset: 3px;
 }
 .testimonial-nav span {
@@ -680,7 +646,7 @@ h2 em {
 }
 
 .enquiry {
-  background: var(--navy-deep);
+  background: var(--color-navy-deep);
   color: white;
   display: grid;
 }
@@ -691,7 +657,7 @@ h2 em {
   grid-column: 7 / -1;
 }
 .enquiry-intro :is(h1, h2) {
-  font-size: var(--heading-section);
+  font-size: var(--text-section);
   margin: 65px 0 30px;
 }
 .enquiry-intro > p {
@@ -709,12 +675,12 @@ h2 em {
 }
 .response-time span {
   color: rgba(255, 255, 255, 0.5);
-  font-size: 11px;
+  font-size: var(--text-micro);
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: var(--tracking-label);
 }
 .response-time strong {
-  font: 400 24px/1.2 "Manrope";
+  font: 400 var(--text-heading-sm)/1.2 var(--font-heading);
 }
 .quote-form {
   display: grid;
@@ -756,7 +722,7 @@ h2 em {
   height: 62px;
   border: 0;
   padding: 0 22px;
-  background: var(--red);
+  background: var(--color-accent);
   color: white;
   display: flex;
   justify-content: space-between;
@@ -773,7 +739,7 @@ h2 em {
 
 .footer {
   --footer-parallax: -96px;
-  background: var(--paper);
+  background: var(--color-paper);
   padding: 90px var(--page-gutter) 28px;
   overflow: clip;
 }
@@ -786,10 +752,10 @@ h2 em {
   justify-content: space-between;
   align-items: flex-start;
   padding-bottom: 75px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--color-line);
 }
 .footer-top h2 {
-  font-size: var(--heading-compact);
+  font-size: var(--text-compact);
   text-align: right;
 }
 .footer-grid {
@@ -829,7 +795,7 @@ h2 em {
   color: #747175;
 }
 .footer-bottom {
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--color-line);
   padding-top: 24px;
   display: flex;
   justify-content: space-between;
@@ -852,8 +818,8 @@ h2 em {
   --hero-parallax: 0px;
   min-height: 570px;
   padding: 115px var(--page-gutter) 72px;
-  background: var(--navy-deep);
-  color: var(--white);
+  background: var(--color-navy-deep);
+  color: var(--color-white);
   display: grid;
   align-items: end;
   overflow: clip;
@@ -889,20 +855,18 @@ h2 em {
   gap: 15px;
 }
 .aircraft-hero-stat strong {
-  font:
-    400 54px/1 "Manrope",
-    sans-serif;
+  font: 400 var(--text-stat)/1 var(--font-heading);
   letter-spacing: -0.05em;
 }
 .aircraft-hero-stat span {
   color: rgba(255, 255, 255, 0.58);
-  font-size: 12px;
+  font-size: var(--text-xs);
   line-height: 1.6;
   text-transform: uppercase;
   letter-spacing: 0.12em;
 }
 .fleet {
-  background: var(--paper);
+  background: var(--color-paper);
 }
 .fleet-heading {
   display: grid;
@@ -927,12 +891,12 @@ h2 em {
 }
 .aircraft-card {
   grid-column: span 4;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--color-line);
 }
 .aircraft-photo {
   height: 290px;
   overflow: hidden;
-  background: var(--mist);
+  background: var(--color-mist);
 }
 .aircraft-photo .swiper-wrapper,
 .aircraft-photo .swiper-slide {
@@ -955,7 +919,7 @@ h2 em {
   padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.65);
   background: rgba(247, 246, 242, 0.9);
-  color: var(--ink);
+  color: var(--color-ink);
   display: grid;
   place-items: center;
   cursor: pointer;
@@ -979,9 +943,9 @@ h2 em {
 }
 .aircraft-slider-arrow:hover,
 .aircraft-slider-arrow:focus-visible {
-  color: var(--white);
-  background: var(--red);
-  border-color: var(--red);
+  color: var(--color-white);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
 }
 .aircraft-slider-prev:hover .airplane-icon,
 .aircraft-slider-prev:focus-visible .airplane-icon {
@@ -992,7 +956,7 @@ h2 em {
   transform: translateX(4px);
 }
 .aircraft-slider-arrow:focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--color-accent);
   outline-offset: 3px;
 }
 .aircraft-card-body {
@@ -1005,7 +969,7 @@ h2 em {
 .aircraft-type {
   grid-column: 1 / -1;
   margin-bottom: 22px;
-  color: var(--red);
+  color: var(--color-accent);
   font-size: 9px;
   line-height: 1;
   text-transform: uppercase;
@@ -1026,10 +990,10 @@ h2 em {
   align-self: center;
   width: 46px;
   height: 46px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--color-line);
   display: grid;
   place-items: center;
-  color: var(--ink);
+  color: var(--color-ink);
   transition:
     background 0.2s,
     color 0.2s,
@@ -1037,17 +1001,17 @@ h2 em {
   font-size: 0;
 }
 .aircraft-card a:hover {
-  background: var(--red);
-  border-color: var(--red);
-  color: var(--white);
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-white);
 }
 .aircraft-card a:focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--color-accent);
   outline-offset: 4px;
 }
 .aircraft-cta {
-  background: var(--navy);
-  color: var(--white);
+  background: var(--color-navy);
+  color: var(--color-white);
   padding: 105px var(--page-gutter);
   display: grid;
   align-items: end;
@@ -1059,7 +1023,7 @@ h2 em {
   grid-column: 9 / -1;
 }
 .aircraft-cta h2 {
-  font-size: var(--heading-section);
+  font-size: var(--text-section);
 }
 .aircraft-cta > div:last-child > p {
   color: rgba(255, 255, 255, 0.65);
@@ -1074,7 +1038,7 @@ h2 em {
   margin-top: 18px;
 }
 .image-credits {
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--color-line);
   padding: 14px 0;
   color: #858286;
   font-size: 9px;
@@ -1085,8 +1049,8 @@ h2 em {
 
 .contact-page {
   min-height: 760px;
-  background: var(--navy-deep);
-  color: var(--white);
+  background: var(--color-navy-deep);
+  color: var(--color-white);
   display: grid;
   align-items: center;
 }
@@ -1103,7 +1067,7 @@ h2 em {
   min-height: 760px;
   display: grid;
   grid-template-columns: 0.8fr 1.2fr;
-  background: var(--paper);
+  background: var(--color-paper);
   overflow: clip;
 }
 .contact-portrait {
@@ -1135,11 +1099,11 @@ h2 em {
   line-height: 1.75;
 }
 .contact-links {
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--color-line);
   margin-top: 38px;
 }
 .contact-links a {
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--color-line);
   min-height: 76px;
   display: grid;
   grid-template-columns: 130px 1fr;
@@ -1153,7 +1117,7 @@ h2 em {
   text-transform: uppercase;
 }
 .contact-links a:hover {
-  color: var(--red);
+  color: var(--color-accent);
 }
 .contact-accreditation {
   margin-top: 46px;
@@ -1174,8 +1138,8 @@ h2 em {
   --hero-parallax: 0px;
   min-height: 480px;
   padding: 105px var(--page-gutter) 70px;
-  background: var(--navy-deep);
-  color: var(--white);
+  background: var(--color-navy-deep);
+  color: var(--color-white);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -1196,7 +1160,7 @@ h2 em {
 .legal-layout {
   display: grid;
   align-items: start;
-  background: var(--paper);
+  background: var(--color-paper);
 }
 .legal-intro {
   grid-column: 1 / span 3;
@@ -1214,21 +1178,21 @@ h2 em {
   max-width: 860px;
 }
 .legal-copy > h2 {
-  font-size: var(--heading-compact);
+  font-size: var(--text-compact);
   margin-bottom: 48px;
 }
 .legal-copy > h2:not(:first-child) {
   padding-top: 72px;
   margin-top: 72px;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--color-line);
 }
 .legal-copy section {
   padding-top: 52px;
   margin-top: 52px;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--color-line);
 }
 .legal-copy h3 {
-  font-size: clamp(var(--heading-item), 2vw, 28px);
+  font-size: clamp(var(--text-heading-sm), 2vw, 28px);
   letter-spacing: -0.035em;
   margin: 0 0 30px;
 }
@@ -1239,7 +1203,7 @@ h2 em {
   margin: 0 0 17px;
 }
 .legal-copy p strong {
-  color: var(--ink);
+  color: var(--color-ink);
 }
 
 @media (max-width: 1180px) {
@@ -1304,7 +1268,7 @@ h2 em {
     position: absolute;
     width: 24px;
     height: 1px;
-    background: var(--ink);
+    background: var(--color-ink);
     transition: transform 0.3s ease, top 0.3s ease;
   }
 
@@ -1333,8 +1297,8 @@ h2 em {
     height: calc(100dvh - 72px);
     margin: 0;
     padding: clamp(52px, 9vh, 90px) var(--page-gutter) 36px;
-    background: var(--navy-deep);
-    color: var(--white);
+    background: var(--color-navy-deep);
+    color: var(--color-white);
     flex-direction: column;
     align-items: stretch;
     gap: 32px;
@@ -1359,7 +1323,7 @@ h2 em {
     width: 100%;
     flex-direction: column;
     gap: 0;
-    font: 400 clamp(38px, 10vw, 64px)/1.05 Manrope, sans-serif;
+    font: 400 var(--text-nav)/1.05 var(--font-heading);
     letter-spacing: -0.055em;
   }
 
@@ -1547,7 +1511,7 @@ h2 em {
     min-height: 0;
     padding: 32px 0;
     border-right: 0;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--color-line);
   }
 
   .steps h3 {
@@ -1774,8 +1738,8 @@ h2 em {
   right: clamp(18px, 2.5vw, 36px);
   bottom: 24px;
   z-index: 50;
-  color: var(--ink);
-  font-family: "DM Sans", sans-serif;
+  color: var(--color-ink);
+  font-family: var(--font-body);
 }
 
 .chat-widget button,
@@ -1793,16 +1757,16 @@ h2 em {
   place-items: center;
   border: 0;
   border-radius: 50%;
-  background: var(--red);
+  background: var(--color-accent);
   box-shadow: 0 14px 34px rgba(23, 23, 25, 0.24);
-  color: var(--white);
+  color: var(--color-white);
   cursor: pointer;
   transition: transform 0.25s ease, background 0.25s ease;
 }
 
 .chat-toggle:hover {
   transform: translateY(-3px);
-  background: var(--navy-deep);
+  background: var(--color-navy-deep);
 }
 
 .chat-toggle svg {
@@ -1818,7 +1782,7 @@ h2 em {
 .chat-widget button:focus-visible,
 .chat-widget input:focus-visible,
 .chat-widget textarea:focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--color-accent);
   outline-offset: 3px;
 }
 
@@ -1827,13 +1791,13 @@ h2 em {
   position: absolute;
   right: 0;
   bottom: 78px;
-  background: var(--white);
+  background: var(--color-white);
   box-shadow: 0 18px 48px rgba(23, 23, 25, 0.18);
 }
 
 .chat-teaser {
   width: 320px;
-  border-top: 3px solid var(--red);
+  border-top: 3px solid var(--color-accent);
   transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
 }
 
@@ -1843,7 +1807,7 @@ h2 em {
   bottom: -9px;
   width: 18px;
   height: 18px;
-  background: var(--white);
+  background: var(--color-white);
   content: "";
   transform: rotate(45deg);
 }
@@ -1857,7 +1821,7 @@ h2 em {
   gap: 14px;
   border: 0;
   background: transparent;
-  color: var(--ink);
+  color: var(--color-ink);
   text-align: left;
   cursor: pointer;
 }
@@ -1867,7 +1831,7 @@ h2 em {
   flex: 0 0 auto;
   width: 48px;
   height: 48px;
-  border: 2px solid var(--red);
+  border: 2px solid var(--color-accent);
   border-radius: 50%;
   object-fit: cover;
 }
@@ -1906,8 +1870,8 @@ h2 em {
   max-height: calc(100dvh - 120px);
   overflow: hidden;
   visibility: hidden;
-  border-top: 3px solid var(--red);
-  background: var(--paper);
+  border-top: 3px solid var(--color-accent);
+  background: var(--color-paper);
   opacity: 0;
   transform: translateY(16px) scale(0.98);
   transform-origin: bottom right;
@@ -1934,12 +1898,12 @@ h2 em {
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 14px;
-  background: var(--navy-deep);
-  color: var(--white);
+  background: var(--color-navy-deep);
+  color: var(--color-white);
 }
 
 .chat-panel-header strong {
-  font-family: "Manrope", sans-serif;
+  font-family: var(--font-heading);
   font-size: 18px;
 }
 
@@ -1950,7 +1914,7 @@ h2 em {
 }
 
 .chat-panel-close {
-  color: var(--white);
+  color: var(--color-white);
 }
 
 .chat-panel-body {
@@ -1962,8 +1926,8 @@ h2 em {
 .chat-intro {
   margin: 0 0 18px;
   padding: 15px;
-  border-left: 3px solid var(--red);
-  background: var(--mist);
+  border-left: 3px solid var(--color-accent);
+  background: var(--color-mist);
   font-size: 14px;
   line-height: 1.5;
 }
@@ -1986,10 +1950,10 @@ h2 em {
 .chat-form input:not([type="checkbox"]),
 .chat-form textarea {
   width: 100%;
-  border: 1px solid var(--line);
+  border: 1px solid var(--color-line);
   border-radius: 0;
-  background: var(--white);
-  color: var(--ink);
+  background: var(--color-white);
+  color: var(--color-ink);
 }
 
 .chat-form input:not([type="checkbox"]) {
@@ -2005,7 +1969,7 @@ h2 em {
 
 .chat-form input:focus,
 .chat-form textarea:focus {
-  border-color: var(--red);
+  border-color: var(--color-accent);
 }
 
 .chat-consent {
@@ -2015,7 +1979,7 @@ h2 em {
   grid-template-columns: auto 1fr;
   align-items: start;
   gap: 10px;
-  background: var(--mist);
+  background: var(--color-mist);
   font-size: 11px;
   line-height: 1.45;
 }
@@ -2024,7 +1988,7 @@ h2 em {
   width: 17px;
   height: 17px;
   margin: 0;
-  accent-color: var(--red);
+  accent-color: var(--color-accent);
 }
 
 .chat-send {
@@ -2035,15 +1999,15 @@ h2 em {
   align-items: center;
   justify-content: space-between;
   border: 0;
-  background: var(--red);
-  color: var(--white);
+  background: var(--color-accent);
+  color: var(--color-white);
   cursor: pointer;
   font-weight: 600;
   transition: background 0.2s ease;
 }
 
 .chat-send:hover {
-  background: var(--navy-deep);
+  background: var(--color-navy-deep);
 }
 
 .chat-send > span {
@@ -2053,7 +2017,7 @@ h2 em {
 .chat-status {
   min-height: 18px;
   margin: 0;
-  color: var(--red);
+  color: var(--color-accent);
   font-size: 12px;
   text-align: center;
 }

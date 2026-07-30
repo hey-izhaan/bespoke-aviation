@@ -1,19 +1,14 @@
 ---
-import { getImage, Picture } from "astro:assets";
-import QuoteForm from "../components/forms/QuoteForm.astro";
+import ApproachSection from "../components/home/ApproachSection.astro";
+import EnquirySection from "../components/home/EnquirySection.astro";
+import FeatureImage from "../components/home/FeatureImage.astro";
+import FounderSection from "../components/home/FounderSection.astro";
+import HomeHero from "../components/home/HomeHero.astro";
+import JourneySection from "../components/home/JourneySection.astro";
+import ServicesSection from "../components/home/ServicesSection.astro";
 import Testimonials from "../components/home/Testimonials.astro";
-import SectionLabel from "../components/ui/SectionLabel.astro";
+import TrustStrip from "../components/home/TrustStrip.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import heroPoster from "../assets/images/hero-poster.png";
-import markPhoto from "../assets/images/mark-rowlands-baseline.jpg";
-import featurePhoto from "../assets/images/private-jet-feature.jpg";
-
-const optimizedPoster = await getImage({
-  src: heroPoster,
-  format: "webp",
-  width: 1920,
-  quality: 78,
-});
 ---
 
 <BaseLayout
@@ -22,176 +17,14 @@ const optimizedPoster = await getImage({
   currentPage="home"
 >
   <main id="top">
-    <section class="hero">
-      <video class="hero-video" autoplay muted loop playsinline poster={optimizedPoster.src}>
-        <source src="/Hero%20Video.mp4" type="video/mp4" />
-      </video>
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <p class="eyebrow light">Independent private aircraft charter</p>
-        <h1>Private Aviation.<br /><em>Personally Managed.</em></h1>
-        <p class="hero-intro">
-          Direct, independent aircraft charter advice from first enquiry to safe arrival —
-          personally managed by Mark Rowlands.
-        </p>
-        <div class="hero-actions">
-          <a class="button button-light" href="#enquiry">
-            Plan your journey <span class="airplane-icon plane-up-right" aria-hidden="true"></span>
-          </a>
-          <a class="text-link light" href="#mark">
-            Meet Mark <span class="airplane-icon plane-down" aria-hidden="true"></span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="hero-trust" aria-label="Bespoke Aviation credentials">
-      <div><strong>30+</strong><span>Years of aviation<br />experience</span></div>
-      <div><strong>500+</strong><span>Successful charters<br />completed</span></div>
-      <div><strong>Global</strong><span>Access to thousands<br />of aircraft</span></div>
-      <div class="aca-badge">
-        <img src="/aca-logo.png" alt="The Air Charter Association" />
-        <span>Accredited member</span>
-      </div>
-    </section>
-
-    <section class="intro section-pad" id="about">
-      <SectionLabel number="01">Our approach</SectionLabel>
-      <div class="intro-grid">
-        <h2>A private charter service built around <em>one relationship.</em></h2>
-        <div class="intro-copy">
-          <p class="lead">
-            Every enquiry is handled directly by Mark — from the initial quotation and
-            aircraft selection through to your safe arrival.
-          </p>
-          <p>
-            Bespoke Aviation combines global aircraft access with honest, independent advice
-            and a level of personal attention that larger charter businesses cannot replicate.
-          </p>
-          <a class="text-link" href="#mark">
-            Discover our difference
-            <span class="airplane-icon plane-up-right" aria-hidden="true"></span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <section class="feature-image" aria-label="Private jet exterior">
-      <Picture
-        src={featurePhoto}
-        formats={["avif", "webp"]}
-        layout="full-width"
-        alt="Private jet approaching an airport for landing"
-      />
-      <div class="image-caption">
-        <span>Worldwide aircraft sourcing</span>
-        <span>Business · Leisure · Complex itineraries</span>
-      </div>
-    </section>
-
-    <section class="services section-pad" id="services">
-      <SectionLabel number="02">Why fly with us</SectionLabel>
-      <div class="services-heading">
-        <h2>Your schedule.<br /><em>Your aircraft.</em></h2>
-        <p>
-          From a straightforward return flight to a demanding multi-stop itinerary, every
-          journey is carefully planned around your priorities.
-        </p>
-      </div>
-      <div class="service-list">
-        <article>
-          <span class="service-number">01</span>
-          <h3>Private Aircraft</h3>
-          <p>Access to thousands of aircraft worldwide, selected around your route, passenger needs, schedule and budget.</p>
-          <span class="airplane-icon service-icon plane-up-right" aria-hidden="true"></span>
-        </article>
-        <article>
-          <span class="service-number">02</span>
-          <h3>Experienced Support</h3>
-          <p>More than three decades of aviation experience applied to every detail, including suitability, safety and operations.</p>
-          <span class="airplane-icon service-icon plane-up-right" aria-hidden="true"></span>
-        </article>
-        <article>
-          <span class="service-number">03</span>
-          <h3>Flexible Service</h3>
-          <p>We understand that plans change. Your charter is managed with agility, discretion and direct personal communication.</p>
-          <span class="airplane-icon service-icon plane-up-right" aria-hidden="true"></span>
-        </article>
-      </div>
-    </section>
-
-    <section class="mark-section" id="mark">
-      <div class="mark-photo">
-        <Picture
-          src={markPhoto}
-          formats={["avif", "webp"]}
-          layout="full-width"
-          alt="Mark Rowlands, Founder of Bespoke Aviation"
-        />
-        <div class="photo-note">
-          <span>Mark Rowlands</span><small>Founder, Bespoke Aviation</small>
-        </div>
-      </div>
-      <div class="mark-copy">
-        <SectionLabel number="03" light>Meet Mark</SectionLabel>
-        <blockquote>
-          “I established Bespoke Aviation to provide clients with an honest, independent and
-          highly personal aircraft charter service.”
-        </blockquote>
-        <p>
-          I’m Mark Rowlands, Founder of Bespoke Aviation. Having spent over three decades in
-          aviation, I established Bespoke Aviation to provide clients with an honest,
-          independent and highly personal aircraft charter service.
-        </p>
-        <p>Every enquiry is handled directly by me from the initial quotation through to your safe arrival.</p>
-        <div class="signature">Mark Rowlands</div>
-      </div>
-    </section>
-
-    <section class="journey section-pad" id="aircraft">
-      <SectionLabel number="04">Your journey</SectionLabel>
-      <div class="journey-header">
-        <h2>Simple from the first call<br /><em>to the final arrival.</em></h2>
-        <p>One experienced point of contact. Clear recommendations. No unnecessary layers.</p>
-      </div>
-      <div class="steps">
-        <article><span>01</span><h3>Tell us your plans</h3><p>Share your route, dates, passengers and any special requirements.</p></article>
-        <article><span>02</span><h3>Receive suitable options</h3><p>Mark sources and compares the most appropriate aircraft for your journey.</p></article>
-        <article><span>03</span><h3>Fly with confidence</h3><p>Your charter is monitored and managed until everyone arrives safely.</p></article>
-      </div>
-    </section>
-
+    <HomeHero />
+    <TrustStrip />
+    <ApproachSection />
+    <FeatureImage />
+    <ServicesSection />
+    <FounderSection />
+    <JourneySection />
     <Testimonials />
-
-    <section class="enquiry section-pad" id="enquiry">
-      <div class="enquiry-intro">
-        <SectionLabel number="05" light>Start your journey</SectionLabel>
-        <h2>Tell us where<br /><em>you need to be.</em></h2>
-        <p>Submit your requirements and Mark will respond personally with suitable charter options.</p>
-        <div class="response-time"><span>Typically responds</span><strong>within 30 minutes</strong></div>
-      </div>
-      <QuoteForm />
-    </section>
+    <EnquirySection />
   </main>
 </BaseLayout>
-
-<style is:global>
-  .feature-image > picture,
-  .mark-photo > picture {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .feature-image > picture > img,
-  .mark-photo > picture > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .mark-photo > picture > img {
-    object-position: center 18%;
-    filter: saturate(0.78);
-  }
-</style>

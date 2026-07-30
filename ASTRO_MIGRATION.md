@@ -31,7 +31,7 @@ Astro will use file-format output during migration so existing indexed and share
   - Check: the project follows the documented directory structure.
 - [x] Add global font loading and CSS reset.
   - Check: DM Sans and Manrope load locally without third-party font requests.
-- [ ] Add design tokens for colors, typography, spacing, layout, borders, and motion.
+- [x] Add design tokens for colors, typography, spacing, layout, borders, and motion.
   - Check: shared visual values are sourced from custom properties rather than repeated magic numbers.
 - [x] Add minimal layout utilities for containers, sections, grids, stacks, and visually hidden content.
   - Check: utilities describe layout behavior and do not duplicate component styling.
@@ -49,7 +49,7 @@ Astro will use file-format output during migration so existing indexed and share
 
 ## Phase 3 — Pages and data
 
-- [ ] Port the home page into section components.
+- [x] Port the home page into section components.
   - Check: all existing sections, content, anchors, video, testimonials, and forms are present.
 - [x] Port the available-aircraft page.
   - Check: the source listing, cards, image controls, image credits, and CTA are present.
@@ -70,7 +70,7 @@ Astro will use file-format output during migration so existing indexed and share
   - Check: behavior initializes once, survives navigation, and disables cleanly for reduced motion.
 - [x] Rebuild testimonial and aircraft galleries.
   - Check: controls, counts, keyboard behavior, and lazy loading work.
-- [x] Replace Barba/GSAP page fading with progressive native transitions.
+- [x] Replace Barba/GSAP page fading with a progressive CSS entry transition.
   - Check: navigation works without JavaScript and reduced motion removes animation.
 - [ ] Preserve quote/contact form behavior.
   - Check: validation works and a valid submission opens a correctly populated email enquiry.
@@ -104,8 +104,6 @@ Astro will use file-format output during migration so existing indexed and share
 
 ## Intentional differences
 
-- `Public/styles.css` remains temporarily for visual parity. Full extraction into the token system is the next styling task, so the design-token acceptance item remains open.
-- Home sections are semantic but not yet extracted into individual Astro section components.
 - The legal page reads the preserved legal `<main>` from the pre-Astro HTML at build time to avoid copy drift.
 - Existing MP4 video is retained; WebM encoding and source markup remain an optimization opportunity.
 - The remote testimonial photograph remains external and is not yet handled by the Astro image pipeline.
@@ -116,3 +114,5 @@ Items are checked only after their corresponding checks pass.
 
 - 2026-07-30: Astro 7 foundation, exact file-format routes, shared layout/components, typed aircraft/testimonial data, npm-managed Lenis/Swiper, responsive AVIF/WebP generation, and initial production verification passed.
 - 2026-07-30: Production build passed with 0 errors and 0 warnings. Exact `.html` routes, 14 aircraft galleries, testimonial controls, chat controls, legal content, and desktop/mobile navigation were verified in-browser.
+- 2026-07-30: Home markup was extracted into nine focused section components. The parity stylesheet moved under Astro source control, canonical design tokens replaced its legacy aliases, and the public stylesheet was removed.
+- 2026-07-30: Desktop and 390px mobile parity, bundled styles, header navigation, and Escape menu handling passed with no route console errors.

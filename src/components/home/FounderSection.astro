@@ -1,0 +1,49 @@
+---
+import { Picture } from "astro:assets";
+import markPhoto from "../../assets/images/mark-rowlands-baseline.jpg";
+import SectionLabel from "../ui/SectionLabel.astro";
+---
+
+<section class="mark-section" id="mark">
+  <div class="mark-photo">
+    <Picture
+      src={markPhoto}
+      formats={["avif", "webp"]}
+      layout="full-width"
+      alt="Mark Rowlands, Founder of Bespoke Aviation"
+    />
+    <div class="photo-note">
+      <span>Mark Rowlands</span><small>Founder, Bespoke Aviation</small>
+    </div>
+  </div>
+  <div class="mark-copy">
+    <SectionLabel number="03" light>Meet Mark</SectionLabel>
+    <blockquote>
+      “I established Bespoke Aviation to provide clients with an honest, independent and
+      highly personal aircraft charter service.”
+    </blockquote>
+    <p>
+      I’m Mark Rowlands, Founder of Bespoke Aviation. Having spent over three decades in
+      aviation, I established Bespoke Aviation to provide clients with an honest,
+      independent and highly personal aircraft charter service.
+    </p>
+    <p>Every enquiry is handled directly by me from the initial quotation through to your safe arrival.</p>
+    <div class="signature">Mark Rowlands</div>
+  </div>
+</section>
+
+<style is:global>
+  .mark-photo > picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .mark-photo > picture > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 18%;
+    filter: saturate(0.78);
+  }
+</style>

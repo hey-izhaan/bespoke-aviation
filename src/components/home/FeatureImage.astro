@@ -1,0 +1,31 @@
+---
+import { Picture } from "astro:assets";
+import featurePhoto from "../../assets/images/private-jet-feature.jpg";
+---
+
+<section class="feature-image" aria-label="Private jet exterior">
+  <Picture
+    src={featurePhoto}
+    formats={["avif", "webp"]}
+    layout="full-width"
+    alt="Private jet approaching an airport for landing"
+  />
+  <div class="image-caption">
+    <span>Worldwide aircraft sourcing</span>
+    <span>Business · Leisure · Complex itineraries</span>
+  </div>
+</section>
+
+<style is:global>
+  .feature-image > picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .feature-image > picture > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

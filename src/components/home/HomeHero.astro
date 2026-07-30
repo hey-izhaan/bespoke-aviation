@@ -1,0 +1,34 @@
+---
+import { getImage } from "astro:assets";
+import heroPoster from "../../assets/images/hero-poster.png";
+
+const optimizedPoster = await getImage({
+  src: heroPoster,
+  format: "webp",
+  width: 1920,
+  quality: 78,
+});
+---
+
+<section class="hero">
+  <video class="hero-video" autoplay muted loop playsinline poster={optimizedPoster.src}>
+    <source src="/Hero%20Video.mp4" type="video/mp4" />
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="eyebrow light">Independent private aircraft charter</p>
+    <h1>Private Aviation.<br /><em>Personally Managed.</em></h1>
+    <p class="hero-intro">
+      Direct, independent aircraft charter advice from first enquiry to safe arrival —
+      personally managed by Mark Rowlands.
+    </p>
+    <div class="hero-actions">
+      <a class="button button-light" href="#enquiry">
+        Plan your journey <span class="airplane-icon plane-up-right" aria-hidden="true"></span>
+      </a>
+      <a class="text-link light" href="#mark">
+        Meet Mark <span class="airplane-icon plane-down" aria-hidden="true"></span>
+      </a>
+    </div>
+  </div>
+</section>

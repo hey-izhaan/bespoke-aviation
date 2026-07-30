@@ -3,6 +3,7 @@ import "lenis/dist/lenis.css";
 import "../styles/tokens.css";
 import "../styles/global.css";
 import "../styles/utilities.css";
+import "../styles/site.css";
 import ChatWidget from "../components/layout/ChatWidget.astro";
 import SiteFooter from "../components/layout/SiteFooter.astro";
 import SiteHeader from "../components/layout/SiteHeader.astro";
@@ -40,7 +41,6 @@ const { title, description, currentPage, showCredits = false } = Astro.props;
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="/styles.css" />
     <title>{title}</title>
   </head>
   <body>

@@ -9,8 +9,8 @@
   --color-ink: #2b2b2e;
   --color-accent: #d40818;
   --color-line: rgb(43 43 46 / 17%);
-  --font-heading: "DM Sans", sans-serif;
-  --font-body: "Manrope", sans-serif;
+  --font-heading: "Manrope", sans-serif;
+  --font-body: "DM Sans", sans-serif;
   --text-display: clamp(3.25rem, 6vw, 6rem);
   --text-section: clamp(2.375rem, 4vw, 3.75rem);
   --text-compact: clamp(2.375rem, 3.125vw, 2.8125rem);
@@ -18,10 +18,16 @@
   --text-body-lg: clamp(1.0625rem, 1.2vw, 1.25rem);
   --text-body: 1rem;
   --text-small: 0.875rem;
+  --text-xs: 0.75rem;
+  --text-micro: 0.6875rem;
+  --text-stat: 3.375rem;
+  --text-stat-sm: 1.75rem;
+  --text-nav: clamp(2.375rem, 10vw, 4rem);
   --leading-tight: 0.98;
   --leading-heading: 1.08;
   --leading-body: 1.7;
   --tracking-tight: -0.045em;
+  --tracking-label: 0.15em;
   --space-2xs: 0.5rem;
   --space-xs: 0.75rem;
   --space-sm: 1rem;

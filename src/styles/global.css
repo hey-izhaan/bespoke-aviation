@@ -22,6 +22,7 @@ html {
 
 body {
   min-width: 20rem;
+  animation: page-in var(--motion-page) var(--ease-out) both;
 }
 
 img,
@@ -49,18 +50,14 @@ select {
   }
 }
 
-@view-transition {
-  navigation: auto;
-}
-
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: var(--motion-page);
+@keyframes page-in {
+  from {
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation-duration: 0s;
+  body {
+    animation: none;
   }
 }
