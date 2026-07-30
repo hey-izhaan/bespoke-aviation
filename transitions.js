@@ -120,71 +120,83 @@ chatWidget.querySelector(".chat-form").addEventListener("submit", (event) => {
   location.href = `mailto:mark@bespoke-aviation.com?subject=Website enquiry from ${encodeURIComponent(data.get("name"))}&body=${encodeURIComponent(body)}`;
 });
 
-const reviews = [
-  {
-    quote:
-      "As always, Mark was professional, courteous, and flexible making the whole process seamless.",
-    name: "T.G.W.",
-  },
-  {
-    quote: "I would definitely recommend Bespoke Aviation.",
-    name: "D.T.",
-  },
-  {
-    quote:
-      "Great arrangement and set up topped with excellent service all the way.",
-    name: "A.P.",
-  },
-  {
-    quote:
-      "Bespoke Aviation was beyond excellent, a special mention to Mark.",
-    name: "N.V.",
-  },
-  {
-    quote:
-      "Bespoke Aviation are my go to place for all my private air services",
-    name: "M.W.",
-  },
-  {
-    quote:
-      "Our family of 8 travelled with Bespoke Aviation, excellent services from booking to arrival.",
-    name: "S.Y.",
-  },
-];
+const sliderSpeed = matchMedia("(prefers-reduced-motion: reduce)").matches
+  ? 0
+  : 550;
 
-let currentReview = 0;
-
-function showReview(index) {
-  const testimonial = document.querySelector(".testimonial");
-  if (!testimonial) return;
-
-  currentReview = (index + reviews.length) % reviews.length;
-  const review = reviews[currentReview];
-
-  testimonial.querySelector("blockquote").textContent = `“${review.quote}”`;
-  testimonial.querySelector(".client-name").textContent =
-    `${review.name} — Bespoke Aviation client`;
-  testimonial.querySelector(".testimonial-nav > span").textContent =
-    `${String(currentReview + 1).padStart(2, "0")} / ${String(reviews.length).padStart(2, "0")}`;
-  testimonial
-    .querySelector(".testimonial-copy")
-    .setAttribute("aria-live", "polite");
+function setTestimonialCount(swiper, count) {
+  if (!count) return;
+  count.textContent = `${String(swiper.realIndex + 1).padStart(2, "0")} / ${String(swiper.slides.length).padStart(2, "0")}`;
 }
 
-document.addEventListener("click", ({ target }) => {
-  const button = target.closest(".testimonial-nav button");
-  if (!button) return;
+function initPageSliders(container) {
+  if (!container || typeof Swiper === "undefined") return;
 
-  const buttons = [...button.parentElement.querySelectorAll("button")];
-  showReview(currentReview + (button === buttons[0] ? -1 : 1));
-});
+  const testimonial = container.querySelector(".testimonial-swiper");
+  if (testimonial && !testimonial.swiper) {
+    const copy = testimonial.closest(".testimonial-copy");
+    const count = copy.querySelector(".testimonial-count");
 
-showReview(currentReview);
+    new Swiper(testimonial, {
+      slidesPerView: 1,
+      speed: sliderSpeed,
+      effect: "fade",
+      fadeEffect: { crossFade: true },
+      autoHeight: true,
+      loop: true,
+      grabCursor: true,
+      keyboard: { enabled: true, onlyInViewport: true },
+      navigation: {
+        prevEl: copy.querySelector(".testimonial-prev"),
+        nextEl: copy.querySelector(".testimonial-next"),
+      },
+      on: {
+        init(swiper) {
+          setTestimonialCount(swiper, count);
+        },
+        slideChange(swiper) {
+          setTestimonialCount(swiper, count);
+        },
+      },
+    });
+  }
+
+  container.querySelectorAll(".aircraft-swiper").forEach((slider) => {
+    if (slider.swiper || slider.querySelectorAll(".swiper-slide").length < 2)
+      return;
+
+    new Swiper(slider, {
+      slidesPerView: 1,
+      speed: sliderSpeed,
+      effect: "fade",
+      fadeEffect: { crossFade: true },
+      grabCursor: true,
+      rewind: true,
+      watchOverflow: true,
+      keyboard: { enabled: true, onlyInViewport: true },
+      navigation: {
+        prevEl: slider.querySelector(".aircraft-slider-prev"),
+        nextEl: slider.querySelector(".aircraft-slider-next"),
+      },
+    });
+  });
+}
+
+function destroyPageSliders(container) {
+  container?.querySelectorAll(".swiper-initialized").forEach((slider) => {
+    slider.swiper?.destroy(true, true);
+  });
+}
+
+initPageSliders(document.querySelector('[data-barba="container"]'));
 
 barba.init({
   transitions: [
     {
       name: "page-fade",
+      beforeLeave({ current }) {
+        destroyPageSliders(current.container);
+      },
       leave({ current }) {
         window.lenis?.stop();
 
@@ -210,6 +222,7 @@ barba.init({
       },
       afterEnter({ next }) {
         requestAnimationFrame(() => {
+          initPageSliders(next.container);
           next.container
             .querySelectorAll("video[autoplay]")
             .forEach((video) => {
