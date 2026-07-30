@@ -1,18 +1,24 @@
 ---
-import { getImage } from "astro:assets";
-import heroPoster from "../../assets/images/hero-poster.avif";
 import { withBase } from "../../utils/paths";
 
-const optimizedPoster = await getImage({
-  src: heroPoster,
-  format: "avif",
-  width: 1920,
-  quality: 78,
-});
+interface Props {
+  posterSrc: string;
+}
+
+const { posterSrc } = Astro.props;
+const videoPriority = { fetchpriority: "high" } as const;
 ---
 
 <section class="hero">
-  <video class="hero-video" autoplay muted loop playsinline poster={optimizedPoster.src}>
+  <video
+    class="hero-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    poster={posterSrc}
+    {...videoPriority}
+  >
     <source src={withBase("Hero%20Video.mp4")} type="video/mp4" />
   </video>
   <div class="hero-overlay"></div>

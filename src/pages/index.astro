@@ -1,4 +1,6 @@
 ---
+import { getImage } from "astro:assets";
+import heroPoster from "../assets/images/hero-poster.avif";
 import ApproachSection from "../components/home/ApproachSection.astro";
 import EnquirySection from "../components/home/EnquirySection.astro";
 import FeatureImage from "../components/home/FeatureImage.astro";
@@ -9,15 +11,23 @@ import ServicesSection from "../components/home/ServicesSection.astro";
 import Testimonials from "../components/home/Testimonials.astro";
 import TrustStrip from "../components/home/TrustStrip.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const optimizedHeroPoster = await getImage({
+  src: heroPoster,
+  format: "avif",
+  width: 1920,
+  quality: 78,
+});
 ---
 
 <BaseLayout
   title="Bespoke Aviation — Private Aviation. Personally Managed."
   description="Bespoke Aviation — private aircraft charter, personally managed by Mark Rowlands."
   currentPage="home"
+  preloadImage={optimizedHeroPoster.src}
 >
   <main id="top">
-    <HomeHero />
+    <HomeHero posterSrc={optimizedHeroPoster.src} />
     <TrustStrip />
     <ApproachSection />
     <FeatureImage />

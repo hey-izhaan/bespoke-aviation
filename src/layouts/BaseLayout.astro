@@ -17,6 +17,7 @@ interface Props {
   currentPage?: "home" | "aircraft" | "contact" | "terms";
   showCredits?: boolean;
   noIndex?: boolean;
+  preloadImage?: string;
 }
 
 const {
@@ -25,6 +26,7 @@ const {
   currentPage,
   showCredits = false,
   noIndex = false,
+  preloadImage,
 } = Astro.props;
 const site = Astro.site ?? Astro.url;
 const canonicalPath = currentPage === "home"
@@ -101,6 +103,9 @@ const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
       sizes="180x180"
       href={withBase("Favicons/apple-touch-icon.png")}
     />
+    {preloadImage && (
+      <link rel="preload" as="image" href={preloadImage} type="image/avif" fetchpriority="high" />
+    )}
     <link
       rel="preload"
       href={withBase("fonts/dm-sans-latin.woff2")}
