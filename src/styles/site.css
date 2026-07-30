@@ -2,6 +2,16 @@ html {
   scrollbar-gutter: stable;
 }
 
+::selection {
+  background: var(--color-selection);
+  color: var(--color-white);
+}
+
+::-moz-selection {
+  background: var(--color-selection);
+  color: var(--color-white);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -249,6 +259,12 @@ h2 em {
 }
 .text-link.light {
   color: white;
+}
+
+@media (min-width: 901px) {
+  .hero-actions .text-link {
+    padding-inline: 10px;
+  }
 }
 .hero-trust {
   height: 132px;

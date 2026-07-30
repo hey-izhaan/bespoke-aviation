@@ -30,6 +30,17 @@
   --heading-section: clamp(38px, 4vw, 60px);
   --heading-compact: clamp(38px, 3.125vw, 45px);
   --heading-item: 24px;
+  --selection: #e85d68;
+}
+
+::selection {
+  background: var(--selection);
+  color: var(--white);
+}
+
+::-moz-selection {
+  background: var(--selection);
+  color: var(--white);
 }
 
 html {
@@ -53,6 +64,7 @@ a {
 img {
   display: block;
   width: 100%;
+  user-select: none;
 }
 button,
 input {
@@ -293,6 +305,12 @@ h2 em {
 }
 .text-link.light {
   color: white;
+}
+
+@media (min-width: 901px) {
+  .hero-actions .text-link {
+    padding-inline: 10px;
+  }
 }
 .hero-trust {
   height: 132px;
