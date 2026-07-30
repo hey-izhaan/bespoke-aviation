@@ -1850,6 +1850,7 @@ h2 em {
   border: 2px solid var(--color-accent);
   border-radius: 50%;
   object-fit: cover;
+  object-position: 50% 30%;
 }
 
 .chat-teaser-open span {
