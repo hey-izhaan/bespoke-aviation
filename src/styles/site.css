@@ -406,6 +406,7 @@ h2 em {
   background: var(--color-mist);
 }
 .pet-travel {
+  margin-top: clamp(48px, 5vw, 88px);
   background: var(--color-navy-deep);
   color: var(--color-white);
   overflow: hidden;
@@ -1764,6 +1765,7 @@ h2 em {
   }
 
   .pet-travel {
+    margin-top: 48px;
     padding: 80px var(--page-gutter);
   }
 
@@ -1976,6 +1978,7 @@ h2 em {
 
 @media (max-width: 600px) {
   .pet-travel {
+    margin-top: 32px;
     padding: 64px 0;
   }
 
