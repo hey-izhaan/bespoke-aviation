@@ -14,6 +14,15 @@ export default defineConfig({
     }),
   ],
   trailingSlash: "never",
+  vite: {
+    server: {
+      watch: {
+        // Ship Studio stores an active Chromium profile here. Its locked Cookies
+        // database cannot be watched on Windows and otherwise crashes Vite.
+        ignored: ["**/.shipstudio/**"],
+      },
+    },
+  },
   build: {
     format: "directory",
   },
