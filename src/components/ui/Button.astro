@@ -1,0 +1,41 @@
+---
+interface Props {
+  href?: string;
+  variant?: "light" | "dark" | "accent" | "outline" | "submit" | "header" | "text" | "contact";
+  type?: "button" | "submit" | "reset";
+  class?: string;
+  ariaLabel?: string;
+  target?: string;
+  rel?: string;
+  navNamespace?: string;
+  ariaCurrent?: "page";
+  showIcon?: boolean;
+}
+
+const {
+  href,
+  variant = "light",
+  type = "button",
+  class: className = "",
+  ariaLabel,
+  target,
+  rel,
+  navNamespace,
+  ariaCurrent,
+  showIcon = true,
+} = Astro.props;
+
+const classes = `button button-${variant} ${className}`.trim();
+---
+
+{href ? (
+  <a class={classes} href={href} aria-label={ariaLabel} target={target} rel={rel} data-nav-namespace={navNamespace} aria-current={ariaCurrent}>
+    <span><slot /></span>
+    {showIcon && <span class="airplane-icon plane-up-right" aria-hidden="true"></span>}
+  </a>
+) : (
+  <button class={classes} type={type} aria-label={ariaLabel}>
+    <span><slot /></span>
+    {showIcon && <span class="airplane-icon plane-up-right" aria-hidden="true"></span>}
+  </button>
+)}

@@ -2,12 +2,14 @@
   import barba from "@barba/core";
   import { gsap } from "gsap";
   import Lenis from "lenis";
+  import A11yDialog, { type A11yDialogInstance } from "a11y-dialog";
   import Swiper from "swiper";
   import { EffectFade, Keyboard, Navigation } from "swiper/modules";
 
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   const sliderInstances = new Map<HTMLElement, Swiper>();
   const quoteFormHandlers = new Map<HTMLFormElement, EventListener>();
+  const aircraftDialogs = new Map<HTMLElement, { dialog: A11yDialogInstance; cleanup: () => void }>();
 
   const transitionDuration = () => reducedMotion.matches ? 0 : 0.35;
   const sliderSpeed = () => reducedMotion.matches ? 0 : 550;
@@ -49,7 +51,12 @@
   if (!reducedMotion.matches) {
     window.bespokeLenis = new Lenis({ autoRaf: true, anchors: true });
     window.bespokeLenis.on("scroll", updateParallax);
-    addEventListener("resize", updateParallax);
+    let lastViewportWidth = innerWidth;
+    addEventListener("resize", () => {
+      if (innerWidth === lastViewportWidth) return;
+      lastViewportWidth = innerWidth;
+      updateParallax();
+    });
   }
 
   const updateTestimonialCount = (
@@ -141,9 +148,104 @@
     });
   };
 
+  const initializeAircraftPage = (container: HTMLElement) => {
+    const sheet = container.querySelector<HTMLElement>(".aircraft-sheet");
+    if (!sheet || aircraftDialogs.has(container)) return;
+    const dialog = new A11yDialog(sheet);
+    const panel = sheet.querySelector<HTMLElement>(".aircraft-sheet-panel");
+    const overlay = sheet.querySelector<HTMLElement>(".aircraft-sheet-overlay");
+    const title = sheet.querySelector<HTMLElement>("#aircraft-sheet-title");
+    const type = sheet.querySelector<HTMLElement>("#aircraft-sheet-type");
+    const passengers = sheet.querySelector<HTMLElement>("#aircraft-sheet-passengers");
+    const performance = sheet.querySelector<HTMLElement>("#aircraft-sheet-performance");
+    const performanceTitle = sheet.querySelector<HTMLElement>("#aircraft-sheet-performance-title");
+    const metrics = sheet.querySelector<HTMLElement>("#aircraft-sheet-metrics");
+    const dragHandle = sheet.querySelector<HTMLElement>(".aircraft-sheet-drag-handle");
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+    const listeners: Array<[EventTarget, string, EventListener]> = [];
+    let closing = false;
+    let dragStart: number | undefined;
+    const duration = () => reduced.matches ? 0 : 0.42;
+    const listen = (target: EventTarget, event: string, handler: EventListener) => {
+      target.addEventListener(event, handler);
+      listeners.push([target, event, handler]);
+    };
+    const close = () => {
+      if (!panel || !overlay || closing) return;
+      if (reduced.matches) { dialog.hide(); return; }
+      closing = true;
+      gsap.killTweensOf([panel, overlay]);
+      gsap.to(panel, { y: panel.offsetHeight, duration: duration(), ease: "power3.in" });
+      gsap.to(overlay, { opacity: 0, duration: duration() * 0.72, ease: "power2.in", onComplete: () => { dialog.hide(); closing = false; } });
+    };
+    const hide: EventListener = (event) => {
+      if (closing || reduced.matches) return;
+      event.preventDefault();
+      close();
+    };
+    dialog.on("show", () => {
+      if (!panel || !overlay) return;
+      closing = false;
+      gsap.killTweensOf([panel, overlay]);
+      gsap.set(panel, { y: panel.offsetHeight });
+      gsap.set(overlay, { opacity: 0 });
+      gsap.to(panel, { y: 0, duration: duration(), ease: "power3.out" });
+      gsap.to(overlay, { opacity: 1, duration: duration() * 0.8, ease: "power2.out" });
+    });
+    dialog.on("hide", hide);
+    container.querySelectorAll<HTMLButtonElement>(".aircraft-info-trigger").forEach((trigger) => {
+      listen(trigger, "click", () => {
+        if (!title || !type || !passengers || !performance || !performanceTitle || !metrics) return;
+        title.textContent = trigger.dataset.aircraftName ?? "";
+        type.textContent = trigger.dataset.aircraftType ?? "";
+        passengers.textContent = `Up to ${trigger.dataset.aircraftPassengers} passengers`;
+        metrics.replaceChildren();
+        const data = trigger.dataset.aircraftPerformance;
+        if (data) {
+          const details = JSON.parse(data) as { title: string; metrics: Array<{ label: string; value: string }> };
+          performanceTitle.textContent = details.title;
+          details.metrics.forEach(({ label, value }) => {
+            const row = document.createElement("div");
+            const term = document.createElement("dt");
+            const definition = document.createElement("dd");
+            term.textContent = label; definition.textContent = value; row.append(term, definition); metrics.append(row);
+          });
+          performance.hidden = false;
+        } else performance.hidden = true;
+        dialog.show();
+      });
+    });
+    if (dragHandle) {
+      listen(dragHandle, "pointerdown", ((event: PointerEvent) => {
+        if (event.button !== 0 || !panel) return;
+        dragStart = event.clientY; dragHandle.setPointerCapture(event.pointerId); gsap.killTweensOf([panel, overlay]);
+      }) as EventListener);
+      listen(dragHandle, "pointermove", ((event: PointerEvent) => {
+        if (dragStart === undefined || !panel || !overlay) return;
+        const distance = Math.max(0, event.clientY - dragStart);
+        gsap.set(panel, { y: Math.min(distance, innerHeight) });
+        gsap.set(overlay, { opacity: Math.max(0, 1 - distance / (panel.offsetHeight * 0.8)) });
+      }) as EventListener);
+      const finish = (event: PointerEvent) => {
+        if (dragStart === undefined || !panel || !overlay) return;
+        const distance = event.clientY - dragStart; dragStart = undefined;
+        if (dragHandle.hasPointerCapture(event.pointerId)) dragHandle.releasePointerCapture(event.pointerId);
+        if (distance > Math.min(Math.max(panel.offsetHeight * 0.28, 120), 240)) { close(); return; }
+        gsap.to(panel, { y: 0, duration: duration(), ease: "elastic.out(1, 0.7)" });
+        gsap.to(overlay, { opacity: 1, duration: duration() * 0.7, ease: "power2.out" });
+      };
+      listen(dragHandle, "pointerup", finish as EventListener);
+      listen(dragHandle, "pointercancel", finish as EventListener);
+    }
+    aircraftDialogs.set(container, { dialog, cleanup: () => {
+      listeners.forEach(([target, event, handler]) => target.removeEventListener(event, handler));
+      dialog.off("hide", hide); gsap.killTweensOf([panel, overlay]); dialog.destroy();
+    } });
+  };
   const initializePage = (container: HTMLElement) => {
     initializeSliders(container);
     initializeQuoteForms(container);
+    initializeAircraftPage(container);
     container.querySelectorAll<HTMLVideoElement>("video[autoplay]").forEach((video) => {
       video.muted = true;
       video.load();
@@ -153,6 +255,8 @@
   };
 
   const destroyPage = (container: HTMLElement) => {
+    aircraftDialogs.get(container)?.cleanup();
+    aircraftDialogs.delete(container);
     container.querySelectorAll<HTMLElement>(".swiper").forEach((slider) => {
       const instance = sliderInstances.get(slider);
       instance?.destroy(true, true);
@@ -240,7 +344,7 @@
           return gsap.fromTo(current.container, { opacity: 0 }, {
             opacity: 1,
             duration: transitionDuration(),
-            ease: "power2.out",
+            ease: "sine.out",
           });
         },
         before() {
@@ -252,7 +356,7 @@
           if (current.container) destroyPage(current.container);
         },
         leave({ current }) {
-          return fadeTo(current.container, 0, "power2.in");
+          return fadeTo(current.container, 0, "sine.out");
         },
         afterLeave() {
           resetScroll();
@@ -262,9 +366,7 @@
           updateNavigation(next.namespace);
           if (next.container) gsap.set(next.container, { opacity: 0 });
         },
-        enter({ next }) {
-          return fadeTo(next.container, 1, "power2.out");
-        },
+        enter() {},
         afterEnter({ next }) {
           if (!next.container) return;
           initializePage(next.container);
@@ -276,8 +378,10 @@
             heading.focus({ preventScroll: true });
           }
         },
-        after() {
-          releaseTransitionLock();
+        after({ next }) {
+          return new Promise((resolve) => {
+            gsap.to(next.container, { opacity: 1, duration: transitionDuration(), ease: "sine.out", onComplete: () => { releaseTransitionLock(); resolve(undefined); } });
+          });
         },
       },
     ],

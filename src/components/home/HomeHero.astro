@@ -1,5 +1,6 @@
 ---
 import { withBase } from "../../utils/paths";
+import Button from "../ui/Button.astro";
 
 interface Props {
   posterSrc: string;
@@ -30,12 +31,8 @@ const videoPriority = { fetchpriority: "high" } as const;
       personally managed by Mark Rowlands.
     </p>
     <div class="hero-actions">
-      <a class="button button-light" href="#enquiry">
-        Plan your journey <span class="airplane-icon plane-up-right" aria-hidden="true"></span>
-      </a>
-      <a class="text-link light" href="#mark">
-        Meet Mark <span class="airplane-icon plane-up-right" aria-hidden="true"></span>
-      </a>
+      <Button href="#enquiry" variant="light">Plan your journey</Button>
+      <Button href="#mark" variant="text" class="light">Meet Mark</Button>
     </div>
   </div>
 </section>

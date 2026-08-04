@@ -135,6 +135,10 @@ Astro will use file-format output during migration so existing indexed and share
 - [ ] Verify ownership and submit the sitemap in Google Search Console and Bing Webmaster Tools.
   - Check: add the account-provided verification values, deploy, confirm ownership, and submit `https://www.bespoke-aviation.com/sitemap-index.xml`.
 
+## Button component rule
+
+- Use `src/components/ui/Button.astro` for buttons and CTA links with a matching visual treatment. Choose an existing variant (`light`, `dark`, `accent`, `outline`, or `submit`) and keep the shared airplane-icon hover/focus animation.
+- If a button needs a visual treatment that does not match those variants, add a named variant to `Button.astro` and its shared styles first. Do not create a one-off standalone button component or bespoke button markup for that case.
 ## Intentional differences
 
 - The legal page reads the preserved legal `<main>` from the pre-Astro HTML at build time to avoid copy drift.

@@ -3,6 +3,7 @@ import { Picture } from "astro:assets";
 import petCabinPhoto from "../../assets/images/pet-travel-cabin.png";
 import { withBase } from "../../utils/paths";
 import SectionLabel from "../ui/SectionLabel.astro";
+import Button from "../ui/Button.astro";
 ---
 
 <section class="pet-travel section-pad" id="pet-travel">
@@ -56,10 +57,7 @@ import SectionLabel from "../ui/SectionLabel.astro";
         </article>
       </div>
 
-      <a class="text-link" href={withBase("terms") + "#pet-travel"}>
-        Read pet travel terms
-        <span class="airplane-icon plane-up-right" aria-hidden="true"></span>
-      </a>
+      <Button href={withBase("terms") + "#pet-travel"} variant="text">Read pet travel terms</Button>
     </div>
   </div>
 </section>

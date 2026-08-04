@@ -1,5 +1,6 @@
 ---
 import { withBase } from "../../utils/paths";
+import Button from "../ui/Button.astro";
 
 interface Props {
   currentPage?: "home" | "aircraft" | "contact" | "terms";
@@ -34,14 +35,7 @@ const { currentPage } = Astro.props;
         aria-current={currentPage === "aircraft" ? "page" : undefined}
       >Available Aircraft</a>
     </nav>
-    <a
-      class="header-cta"
-      href={withBase("contact-us")}
-      data-nav-namespace="contact"
-      aria-current={currentPage === "contact" ? "page" : undefined}
-    >
-      Request a quote <span class="airplane-icon plane-up-right" aria-hidden="true"></span>
-    </a>
+    <Button href={withBase("contact-us")} variant="header" navNamespace="contact" ariaCurrent={currentPage === "contact" ? "page" : undefined}>Request a quote</Button>
   </div>
 </header>
 
