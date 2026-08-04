@@ -17,6 +17,7 @@ html {
 }
 body {
   margin: 0;
+  padding-top: 92px;
   min-width: 320px;
   background: var(--color-paper);
   color: var(--color-ink);
@@ -65,8 +66,8 @@ h3 {
   justify-content: space-between;
   background: var(--color-paper);
   border-bottom: 1px solid rgba(43, 43, 46, 0.12);
-  position: sticky;
-  top: 0;
+  position: fixed;
+  inset: 0 0 auto;
   z-index: 20;
 }
 .brand {
@@ -1181,7 +1182,7 @@ h2 em {
 .aircraft-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: 58px var(--grid-gap);
+  gap: 40px var(--grid-gap);
 }
 .aircraft-card {
   grid-column: span 4;
@@ -1273,7 +1274,7 @@ h2 em {
   outline-offset: 3px;
 }
 .aircraft-card-body {
-  padding: 24px 0 26px;
+  padding: 20px 0 22px;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: end;
@@ -1281,7 +1282,7 @@ h2 em {
 }
 .aircraft-type {
   grid-column: 1 / -1;
-  margin-bottom: 22px;
+  margin-bottom: 16px;
   color: var(--color-accent);
   font-size: 9px;
   line-height: 1;
@@ -1441,8 +1442,32 @@ h2 em {
 .aircraft-sheet-performance dd {
   color: #646267;
 }
-@media (max-width: 560px) {
+@media (max-width: 1400px) {
+  .aircraft-card-body {
+    padding-block: 14px 16px;
+    row-gap: 10px;
+  }
+  .aircraft-type {
+    margin-bottom: 10px;
+  }
+  .aircraft-card h3 {
+    line-height: 1.05;
+  }
+  .aircraft-card p {
+    margin-top: 0;
+  }
+  .aircraft-grid {
+    row-gap: 32px;
+  }
+  .aircraft-card-body {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
   .aircraft-info-trigger {
+    grid-column: 1;
+    grid-row: auto;
+    width: 100%;
+    justify-content: space-between;
     min-width: auto;
     padding: 0 12px;
   }
@@ -1674,6 +1699,7 @@ h2 em {
   }
 
   body {
+    padding-top: 72px;
     overflow-x: hidden;
   }
 
