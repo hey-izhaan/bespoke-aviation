@@ -353,16 +353,16 @@ h2 em {
   border-color: #b90715;
   color: var(--color-white);
 }
-.button-light:hover,
 .button.button-text:hover,
 .button.button-text:focus-visible {
   background: transparent;
   border-color: transparent;
   color: inherit;
 }
+.button-light:hover,
 .button-light:focus-visible {
-  background: var(--color-mist);
-  border-color: var(--color-mist);
+  background: #e3e2df;
+  border-color: #e3e2df;
   color: var(--color-navy);
 }
 .button .airplane-icon {
@@ -1747,6 +1747,10 @@ h2 em {
   }
 
   .menu-toggle {
+    position: fixed;
+    z-index: 23;
+    top: 12px;
+    right: calc(var(--page-gutter) - 12px);
     width: 48px;
     height: 48px;
     margin-right: -12px;
@@ -2640,4 +2644,38 @@ body.is-transitioning {
 
 body.is-transitioning [data-barba="container"] {
   pointer-events: none;
+}
+
+
+@media (max-width: 900px) {
+  .pet-travel-photo-note {
+    top: 24px;
+    right: auto;
+    bottom: auto;
+    left: 20px;
+  }
+}
+
+
+
+
+@media (max-width: 900px) {
+  .pet-travel-inner {
+    display: flex;
+    flex-direction: column;
+  }
+  .pet-travel-copy {
+    order: 1;
+    margin: 0 var(--page-gutter);
+  }
+  .pet-travel-photo {
+    order: 2;
+    margin-top: -84px;
+  }
+  .pet-travel-photo-note {
+    top: auto;
+    right: 28px;
+    bottom: 26px;
+    left: auto;
+  }
 }

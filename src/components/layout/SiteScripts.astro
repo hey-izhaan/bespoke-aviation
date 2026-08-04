@@ -28,9 +28,13 @@
   const updateParallax = () => {
     const footer = document.querySelector<HTMLElement>(".footer");
     if (footer) {
-      const rect = footer.getBoundingClientRect();
-      const progress = Math.max(0, Math.min(1, (innerHeight - rect.top) / rect.height));
-      footer.style.setProperty("--footer-parallax", `${(progress - 1) * 96}px`);
+      if (matchMedia("(min-width: 901px)").matches) {
+        const rect = footer.getBoundingClientRect();
+        const progress = Math.max(0, Math.min(1, (innerHeight - rect.top) / rect.height));
+        footer.style.setProperty("--footer-parallax", `${(progress - 1) * 96}px`);
+      } else {
+        footer.style.removeProperty("--footer-parallax");
+      }
     }
 
     const hero = document.querySelector<HTMLElement>(
