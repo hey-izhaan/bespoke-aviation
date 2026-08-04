@@ -35,7 +35,7 @@ const canonicalPath = currentPage === "home"
   ? withBase()
   : Astro.url.pathname.replace(/\/$/, "");
 const pageUrl = new URL(canonicalPath, site);
-const ogImageUrl = new URL(withBase("og-image.jpg"), site);
+const ogImagePath = withBase("og-image.jpg");
 const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const bingVerification = import.meta.env.PUBLIC_BING_SITE_VERIFICATION;
 const namespace = currentPage ?? "not-found";
@@ -64,8 +64,8 @@ const namespace = currentPage ?? "not-found";
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="en_GB" />
     <meta property="og:url" content={pageUrl} />
-    <meta property="og:image" content={ogImageUrl} />
-    <meta property="og:image:secure_url" content={ogImageUrl} />
+    <meta property="og:image" content={ogImagePath} />
+    <meta property="og:image:secure_url" content={ogImagePath} />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -76,7 +76,7 @@ const namespace = currentPage ?? "not-found";
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image" content={ogImagePath} />
     <meta
       name="twitter:image:alt"
       content="Bespoke Aviation — Private Aviation. Personally Managed."
