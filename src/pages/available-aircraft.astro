@@ -45,4 +45,164 @@ import { withBase } from "../utils/paths";
       </div>
     </section>
   </main>
+
+  <div class="aircraft-sheet" id="aircraft-sheet" aria-hidden="true" aria-labelledby="aircraft-sheet-title">
+    <div class="aircraft-sheet-overlay" data-a11y-dialog-hide></div>
+    <div class="aircraft-sheet-panel" role="document">
+      <div class="aircraft-sheet-drag-handle" aria-hidden="true"></div>
+      <button class="aircraft-sheet-close" type="button" data-a11y-dialog-hide>Close</button>
+      <p class="eyebrow" id="aircraft-sheet-type"></p>
+      <h2 id="aircraft-sheet-title"></h2>
+      <p class="aircraft-sheet-passengers" id="aircraft-sheet-passengers"></p>
+      <section class="aircraft-sheet-performance" id="aircraft-sheet-performance" hidden aria-labelledby="aircraft-sheet-performance-title">
+        <h3 id="aircraft-sheet-performance-title"></h3>
+        <dl id="aircraft-sheet-metrics"></dl>
+      </section>
+    </div>
+  </div>
 </BaseLayout>
+
+<script>
+  import A11yDialog from "a11y-dialog";
+  import { gsap } from "gsap";
+
+  type Performance = {
+    title: string;
+    metrics: Array<{ label: string; value: string }>;
+  };
+
+  const sheet = document.querySelector<HTMLElement>(".aircraft-sheet");
+  const dialog = sheet ? new A11yDialog(sheet) : undefined;
+  const sheetPanel = sheet?.querySelector<HTMLElement>(".aircraft-sheet-panel");
+  const sheetOverlay = sheet?.querySelector<HTMLElement>(".aircraft-sheet-overlay");
+  const title = document.querySelector<HTMLElement>("#aircraft-sheet-title");
+  const type = document.querySelector<HTMLElement>("#aircraft-sheet-type");
+  const passengers = document.querySelector<HTMLElement>("#aircraft-sheet-passengers");
+  const performance = document.querySelector<HTMLElement>("#aircraft-sheet-performance");
+  const performanceTitle = document.querySelector<HTMLElement>("#aircraft-sheet-performance-title");
+  const metrics = document.querySelector<HTMLElement>("#aircraft-sheet-metrics");
+
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  let isClosing = false;
+  let dragStart: number | undefined;
+
+  const animationDuration = () => reducedMotion.matches ? 0 : 0.42;
+  const closeSheet = () => {
+    if (!dialog || !sheetPanel || !sheetOverlay || isClosing) return;
+    if (reducedMotion.matches) {
+      dialog.hide();
+      return;
+    }
+
+    isClosing = true;
+    gsap.killTweensOf([sheetPanel, sheetOverlay]);
+    gsap.to(sheetPanel, {
+      y: sheetPanel.offsetHeight,
+      duration: animationDuration(),
+      ease: "power3.in",
+    });
+    gsap.to(sheetOverlay, {
+      opacity: 0,
+      duration: animationDuration() * 0.72,
+      ease: "power2.in",
+      onComplete: () => {
+        dialog.hide();
+        isClosing = false;
+      },
+    });
+  };
+
+  dialog?.on("show", () => {
+    if (!sheetPanel || !sheetOverlay) return;
+    isClosing = false;
+    gsap.killTweensOf([sheetPanel, sheetOverlay]);
+    gsap.set(sheetPanel, { y: sheetPanel.offsetHeight });
+    gsap.set(sheetOverlay, { opacity: 0 });
+    gsap.to(sheetPanel, {
+      y: 0,
+      duration: animationDuration(),
+      ease: "power3.out",
+    });
+    gsap.to(sheetOverlay, {
+      opacity: 1,
+      duration: animationDuration() * 0.8,
+      ease: "power2.out",
+    });
+  });
+
+  dialog?.on("hide", (event) => {
+    if (isClosing || reducedMotion.matches) return;
+    event.preventDefault();
+    closeSheet();
+  });
+
+  document.querySelectorAll<HTMLButtonElement>(".aircraft-info-trigger").forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      if (!sheet || !title || !type || !passengers || !performance || !performanceTitle || !metrics) return;
+
+      title.textContent = trigger.dataset.aircraftName ?? "";
+      type.textContent = trigger.dataset.aircraftType ?? "";
+      passengers.textContent = `Up to ${trigger.dataset.aircraftPassengers} passengers`;
+      metrics.replaceChildren();
+
+      const data = trigger.dataset.aircraftPerformance;
+      if (data) {
+        const details = JSON.parse(data) as Performance;
+        performanceTitle.textContent = details.title;
+        details.metrics.forEach(({ label, value }) => {
+          const row = document.createElement("div");
+          const term = document.createElement("dt");
+          const definition = document.createElement("dd");
+          term.textContent = label;
+          definition.textContent = value;
+          row.append(term, definition);
+          metrics.append(row);
+        });
+        performance.hidden = false;
+      } else {
+        performance.hidden = true;
+      }
+
+      dialog?.show();
+    });
+  });
+
+  const dragHandle = sheet?.querySelector<HTMLElement>(".aircraft-sheet-drag-handle");
+  dragHandle?.addEventListener("pointerdown", (event) => {
+    if (event.button !== 0 || !sheetPanel) return;
+    dragStart = event.clientY;
+    dragHandle.setPointerCapture(event.pointerId);
+    gsap.killTweensOf([sheetPanel, sheetOverlay]);
+  });
+  dragHandle?.addEventListener("pointermove", (event) => {
+    if (dragStart === undefined || !sheetPanel || !sheetOverlay) return;
+    const distance = Math.max(0, event.clientY - dragStart);
+    gsap.set(sheetPanel, { y: Math.min(distance, innerHeight) });
+    gsap.set(sheetOverlay, { opacity: Math.max(0, 1 - distance / (sheetPanel.offsetHeight * 0.8)) });
+  });
+  const finishDrag = (event: PointerEvent) => {
+    if (dragStart === undefined || !sheetPanel || !sheetOverlay) return;
+    const distance = event.clientY - dragStart;
+    dragStart = undefined;
+    if (dragHandle?.hasPointerCapture(event.pointerId)) dragHandle.releasePointerCapture(event.pointerId);
+
+    const dismissThreshold = Math.min(Math.max(sheetPanel.offsetHeight * 0.28, 120), 240);
+    if (distance > dismissThreshold) {
+      closeSheet();
+      return;
+    }
+
+    gsap.to(sheetPanel, {
+      y: 0,
+      duration: animationDuration(),
+      ease: "elastic.out(1, 0.7)",
+    });
+    gsap.to(sheetOverlay, {
+      opacity: 1,
+      duration: animationDuration() * 0.7,
+      ease: "power2.out",
+    });
+  };
+  dragHandle?.addEventListener("pointerup", finishDrag);
+  dragHandle?.addEventListener("pointercancel", finishDrag);
+</script>

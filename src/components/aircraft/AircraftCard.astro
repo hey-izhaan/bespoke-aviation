@@ -1,7 +1,6 @@
 ---
 import { Picture } from "astro:assets";
 import type { Aircraft } from "../../data/aircraft";
-import { withBase } from "../../utils/paths";
 
 interface Props {
   aircraft: Aircraft;
@@ -39,8 +38,17 @@ const { aircraft } = Astro.props;
     <span class="aircraft-type">{aircraft.type}</span>
     <h3>{aircraft.name}</h3>
     <p>Up to {aircraft.passengers} passengers</p>
-    <a href={withBase("contact-us")} aria-label={`Request a quote for the ${aircraft.name}`}>
+    <button
+      class="aircraft-info-trigger"
+      type="button"
+      data-aircraft-name={aircraft.name}
+      data-aircraft-type={aircraft.type}
+      data-aircraft-passengers={aircraft.passengers}
+      data-aircraft-performance={aircraft.performance ? JSON.stringify(aircraft.performance) : undefined}
+      aria-haspopup="dialog"
+    >
+      More info
       <span class="airplane-icon plane-up-right" aria-hidden="true"></span>
-    </a>
+    </button>
   </div>
 </article>
