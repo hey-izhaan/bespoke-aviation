@@ -4,7 +4,7 @@ import { withBase } from "../utils/paths";
 import termsDocument from "../../terms.html?raw";
 
 const legacyMainContent = termsDocument.match(/<main id="top">([\s\S]*?)<\/main>/)?.[1];
-const mainContent = legacyMainContent?.replace(
+const mainContent = legacyMainContent?.replace('class="text-link"', 'class="button button-text"').replace(
   /href="contact-us\.html"/g,
   `href="${withBase("contact-us")}"`,
 );

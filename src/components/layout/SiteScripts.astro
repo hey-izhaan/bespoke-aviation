@@ -165,6 +165,9 @@
     const performanceTitle = sheet.querySelector<HTMLElement>("#aircraft-sheet-performance-title");
     const metrics = sheet.querySelector<HTMLElement>("#aircraft-sheet-metrics");
     const dragHandle = sheet.querySelector<HTMLElement>(".aircraft-sheet-drag-handle");
+    const entranceContent = Array.from(panel?.querySelectorAll<HTMLElement>(
+      ".aircraft-sheet-drag-handle, .aircraft-sheet-close, .aircraft-sheet-panel > .eyebrow, .aircraft-sheet-panel > h2, .aircraft-sheet-passengers, .aircraft-sheet-performance",
+    ) ?? []);
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     const listeners: Array<[EventTarget, string, EventListener]> = [];
     let closing = false;
@@ -190,11 +193,18 @@
     dialog.on("show", () => {
       if (!panel || !overlay) return;
       closing = false;
-      gsap.killTweensOf([panel, overlay]);
-      gsap.set(panel, { y: panel.offsetHeight });
+      gsap.killTweensOf([panel, overlay, entranceContent]);
+      if (reduced.matches) {
+        gsap.set([panel, overlay, entranceContent], { clearProps: "all" });
+        return;
+      }
+      gsap.set(panel, { y: 0, yPercent: 105, opacity: 0 });
       gsap.set(overlay, { opacity: 0 });
-      gsap.to(panel, { y: 0, duration: duration(), ease: "power3.out" });
-      gsap.to(overlay, { opacity: 1, duration: duration() * 0.8, ease: "power2.out" });
+      gsap.set(entranceContent, { y: 18, opacity: 0 });
+      gsap.timeline()
+        .to(overlay, { opacity: 1, duration: 0.28, ease: "power2.out" })
+        .to(panel, { yPercent: 0, opacity: 1, duration: 0.58, ease: "power4.out" }, 0)
+        .to(entranceContent, { y: 0, opacity: 1, duration: 0.34, stagger: 0.045, ease: "power2.out" }, 0.2);
     });
     dialog.on("hide", hide);
     container.querySelectorAll<HTMLButtonElement>(".aircraft-info-trigger").forEach((trigger) => {
@@ -344,12 +354,7 @@
         name: "page-fade",
         once({ current }) {
           updateNavigation(current.namespace);
-          if (!current.container) return Promise.resolve();
-          return gsap.fromTo(current.container, { opacity: 0 }, {
-            opacity: 1,
-            duration: transitionDuration(),
-            ease: "sine.out",
-          });
+          return Promise.resolve();
         },
         before() {
           document.body.classList.add("is-transitioning");

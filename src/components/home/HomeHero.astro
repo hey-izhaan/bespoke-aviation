@@ -17,10 +17,15 @@ const videoPriority = { fetchpriority: "high" } as const;
     muted
     loop
     playsinline
+    preload="metadata"
     poster={posterSrc}
     {...videoPriority}
   >
-    <source src={withBase("Hero%20Video.mp4")} type="video/mp4" />
+    <source
+      src={withBase("Hero%20Video.mp4")}
+      type="video/mp4"
+      media="(min-width: 769px)"
+    />
   </video>
   <div class="hero-overlay"></div>
   <div class="hero-content">

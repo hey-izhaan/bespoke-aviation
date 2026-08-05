@@ -261,20 +261,28 @@ h2 em {
 }
 .button-text {
   min-width: 0;
+  width: fit-content;
   gap: 22px;
-  padding: 7px 20px;
+  padding: 7px 0;
   border: 0;
   position: relative;
   background: transparent;
   color: inherit;
   font-weight: 600;
+  line-height: 1.35;
+}
+.button-text > span:first-child {
+  display: inline-block;
+}
+.button-text .airplane-icon {
+  align-self: center;
 }
 .button-text::before,
 .button-text::after {
   content: "";
   position: absolute;
-  left: 20px;
-  right: 20px;
+  left: 0;
+  right: 0;
   bottom: 0;
   height: 1px;
   transition: transform var(--motion-fast) var(--ease-out);
@@ -392,7 +400,7 @@ h2 em {
   font-weight: 600;
   display: inline-flex;
   gap: 22px;
-  padding: 7px 20px;
+  padding: 7px 0;
   border-bottom: 1px solid currentColor;
   justify-content: space-between;
 }
@@ -400,11 +408,6 @@ h2 em {
   color: white;
 }
 
-@media (min-width: 901px) {
-  .hero-actions .text-link {
-    padding-inline: 10px;
-  }
-}
 .hero-trust {
   height: 132px;
   border-top: 1px solid rgba(255, 255, 255, 0.24);
@@ -510,7 +513,7 @@ h2 em {
   line-height: 1.55;
   margin-top: 0;
 }
-.intro-copy .text-link {
+.intro-copy .button-text {
   margin-top: 20px;
 }
 
