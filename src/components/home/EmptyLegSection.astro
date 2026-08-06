@@ -1,0 +1,20 @@
+---
+import Button from "../ui/Button.astro";
+import SectionLabel from "../ui/SectionLabel.astro";
+
+const instagramUrl =
+  "https://www.instagram.com/bespokeaviationlimited?igsh=MTZjdzNoNDJ1cnJmbg%3D%3D&utm_source=qr";
+---
+
+<section class="empty-leg-cta" aria-labelledby="empty-leg-heading">
+  <SectionLabel number="06" light>Empty leg opportunities</SectionLabel>
+  <div class="empty-leg-copy">
+    <h2 id="empty-leg-heading">Flexible plans.<br /><em>Exceptional opportunities.</em></h2>
+    <div class="empty-leg-details">
+      <p>Follow Bespoke Aviation on Instagram for empty-leg flights as they become available.</p>
+      <Button href={instagramUrl} variant="light" target="_blank" rel="noopener noreferrer">
+        Check Instagram
+      </Button>
+    </div>
+  </div>
+</section>

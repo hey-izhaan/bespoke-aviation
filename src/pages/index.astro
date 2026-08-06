@@ -3,6 +3,7 @@ import { getImage } from "astro:assets";
 import heroPoster from "../assets/images/hero-poster.avif";
 import ApproachSection from "../components/home/ApproachSection.astro";
 import EnquirySection from "../components/home/EnquirySection.astro";
+import EmptyLegSection from "../components/home/EmptyLegSection.astro";
 import FeatureImage from "../components/home/FeatureImage.astro";
 import FounderSection from "../components/home/FounderSection.astro";
 import HomeHero from "../components/home/HomeHero.astro";
@@ -36,6 +37,7 @@ const optimizedHeroPoster = await getImage({
     <ServicesSection />
     <FounderSection />
     <JourneySection />
+    <EmptyLegSection />
     <Testimonials />
     <EnquirySection />
   </main>
